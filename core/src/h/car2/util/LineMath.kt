@@ -1,11 +1,18 @@
 package h.car2.util
 
-import h.car2.wWidth
-
 
 const val lineWidth = wWidth / 4
 
 const val halfLine = lineWidth / 2
 
 
-fun centerOfLine(index: Int) = ((index - 1) * lineWidth) + halfLine
+fun linePos(index: Int) = index * lineWidth
+
+
+infix fun Number.centerOfLine(index: Int) =
+		linePos(index - 1) + halfLine - half()
+
+
+infix fun Number.linePosition(index: Int) = linePos(index) - half()
+
+fun Number.half() = toFloat() / 2f
