@@ -17,11 +17,11 @@ class Renderer {
 
 	private val viewport =
 			if (isMobile)
-				StretchboxingViewport(aspectRatio = wWidth / wHeight)
-//				StretchViewport(wWidth, wHeight, camera)
+//				StretchboxingViewport(aspectRatio = wWidth / wHeight)
+				StretchViewport(wWidth, wHeight, camera)
 			else
-				LetterboxingViewport(aspectRatio = wWidth / wHeight)
-//				FitViewport(wWidth, wHeight, camera)
+//				LetterboxingViewport(aspectRatio = wWidth / wHeight)
+				FitViewport(wWidth, wHeight, camera)
 
 
 	private val batch = SpriteBatch()
