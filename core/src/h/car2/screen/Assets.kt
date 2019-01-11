@@ -2,9 +2,7 @@ package h.car2.screen
 
 import com.badlogic.gdx.assets.AssetManager
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
-import h.car2.entity.Car
-import h.car2.entity.CarSide
-import h.car2.entity.World
+import h.car2.entity.*
 import h.car2.util.AssetsDescription
 
 class Assets {
@@ -17,8 +15,8 @@ class Assets {
 	private val carR = Car(CarSide.Right(assetManager))
 	private val carL = Car(CarSide.Left(assetManager))
 
-//	private val spawnR = Spawn(assetManager, SpawnSide.Right)
-//	private val spawnL = Spawn(assetManager, SpawnSide.Left)
+	private val spawnR = Spawn(SpawnSide.Right(assetManager))
+	private val spawnL = Spawn(SpawnSide.Left(assetManager))
 
 
 	init {
@@ -29,19 +27,12 @@ class Assets {
 		}
 	}
 
+
 	fun load() {
-//
-//
-//		with(assetManager) {
-//			start(AssetsDescription.atlas)
-//
-//			finishLoading()
-//		}
-//
-//		world.start()
 
 		carR.start()
 		carL.start()
+
 	}
 
 
@@ -51,24 +42,26 @@ class Assets {
 		carR.update(delta)
 		carL.update(delta)
 
+		spawnR.update(delta)
+		spawnL.update(delta)
 
 	}
+
 
 	fun draw(batch: SpriteBatch) {
 
 		world.draw(batch)
 
+		spawnR.draw(batch)
+		spawnL.draw(batch)
+
 		carR.draw(batch)
 		carL.draw(batch)
 
-//		spawnR.draw(batch)
-//		spawnL.draw(batch)
-
 	}
 
-	fun dispose() {
-		assetManager.dispose()
-	}
+
+	fun dispose() = assetManager.dispose()
 
 
 }
