@@ -11,7 +11,7 @@ class Game : KtxGame<Screen>() {
 
 	override fun create() {
 
-		addScreen(PlayScreen(this))
+		addScreen(PlayScreen())
 
 		setScreen<PlayScreen>()
 

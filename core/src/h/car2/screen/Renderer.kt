@@ -4,10 +4,10 @@ import com.badlogic.gdx.graphics.OrthographicCamera
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.badlogic.gdx.utils.viewport.FitViewport
 import com.badlogic.gdx.utils.viewport.StretchViewport
-import com.badlogic.gdx.utils.viewport.Viewport
+import h.car2.util.StretchboxingViewport
 import h.car2.util.isMobile
-import h.car2.wHeight
-import h.car2.wWidth
+import h.car2.util.wHeight
+import h.car2.util.wWidth
 import ktx.app.LetterboxingViewport
 import ktx.graphics.use
 
@@ -16,16 +16,19 @@ class Renderer {
 	private val camera = OrthographicCamera()
 
 	private val viewport =
-			if (isMobile) StretchViewport(wWidth, wHeight, camera)
-			else LetterboxingViewport(aspectRatio = wWidth / wHeight)
+			if (isMobile)
+				StretchboxingViewport(aspectRatio = wWidth / wHeight)
+//				StretchViewport(wWidth, wHeight, camera)
+			else
+				LetterboxingViewport(aspectRatio = wWidth / wHeight)
+//				FitViewport(wWidth, wHeight, camera)
 
-	private var batch = SpriteBatch()
+
+	private val batch = SpriteBatch()
 
 
-
-	fun resize(width: Int, height: Int) {
-		viewport.update(width, height, true)
-	}
+	fun resize(width: Int, height: Int) =
+			viewport.update(width, height, true)
 
 
 	fun draw(assets: Assets) {
@@ -35,7 +38,6 @@ class Renderer {
 
 			assets.draw(it)
 
-			assets.draw(viewport)
 		}
 
 	}

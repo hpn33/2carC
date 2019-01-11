@@ -7,9 +7,13 @@ import h.car2.screen.stage.StageManager
 class PlayScreen : ScreenAdapter() {
 
 
-	private val asset= Assets()
+	private val asset = Assets()
 	private val renderer = Renderer()
 	private val stageManager = StageManager()
+
+	override fun show() {
+		asset.load()
+	}
 
 	override fun resize(width: Int, height: Int) = renderer.resize(width, height)
 
@@ -18,8 +22,17 @@ class PlayScreen : ScreenAdapter() {
 
 		stageManager.update(delta)
 
+		asset.update(delta)
+
 		renderer.draw(asset)
 	}
 
+	override fun hide() {
+		dispose()
+	}
+
+	override fun dispose() {
+		asset.dispose()
+	}
 
 }
