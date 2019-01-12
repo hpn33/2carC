@@ -18,7 +18,7 @@ class Spawn(side: SpawnSide) {
 	private val timer = Timer(1f)
 
 
-	fun update(delta: Float) {
+	fun update(delta: Float, car: Car) {
 
 		// add
 		timer.update(delta) {
@@ -36,7 +36,9 @@ class Spawn(side: SpawnSide) {
 		(activeObject.size - 1 downTo 0).forEach {
 
 			val item = activeObject[it]
+
 			item.update(delta)
+			item.collation(car)
 
 			if (!item.active) {
 				activeObject.removeAt(it)

@@ -9,10 +9,11 @@ class PlayScreen : ScreenAdapter() {
 
 	private val asset = Assets()
 	private val renderer = Renderer()
-	private val stageManager = StageManager()
+//	private val stageManager = StageManager(asset)
 
 	override fun show() {
 		asset.load()
+
 	}
 
 	override fun resize(width: Int, height: Int) = renderer.resize(width, height)
@@ -20,7 +21,7 @@ class PlayScreen : ScreenAdapter() {
 
 	override fun render(delta: Float) {
 
-		stageManager.update(delta)
+//		stageManager.update ()
 
 		asset.update(delta)
 

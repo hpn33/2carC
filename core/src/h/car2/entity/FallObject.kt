@@ -11,14 +11,25 @@ class FallObject(private val side: SpawnSide) : Sprite(), Pool.Poolable {
 	var active = true
 
 
+	enum class Type { None, Coin, Block }
+
+	var type = Type.None
+
+
 	fun init() {
 
 
 		val random = MathUtils.random(0, 9)
 
 		val region = when (random) {
-			1, 2, 3, 4 -> side.coinTexture
-			5, 6, 7, 8 -> side.blockTexture
+			1, 2, 3 -> {
+				type = Type.Coin
+				side.coinTexture
+			}
+			4, 5, 6, 7, 8 -> {
+				type = Type.Block
+				side.blockTexture
+			}
 			0, 9 -> return
 			else -> return
 		}
@@ -46,16 +57,32 @@ class FallObject(private val side: SpawnSide) : Sprite(), Pool.Poolable {
 
 		y -= 100 * delta
 
+
 		if (y <= -regionHeight)
 			active = false
 
 	}
 
+	fun collation(car: Car) {
+		if (boundingRectangle.overlaps(car.boundingRectangle)) {
+			when (type) {
+
+				Type.Coin -> scoreUp()
+				Type.Block -> {
+
+				}
+				Type.None -> Unit
+
+			}
+
+			active = false
+		}
+	}
+
 
 	override fun reset() {
-
+		type = Type.None
 		texture = null
-
 	}
 
 

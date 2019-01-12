@@ -42,8 +42,8 @@ class Assets {
 		carR.update(delta)
 		carL.update(delta)
 
-		spawnR.update(delta)
-		spawnL.update(delta)
+		spawnR.update(delta, carR)
+		spawnL.update(delta, carL)
 
 	}
 
