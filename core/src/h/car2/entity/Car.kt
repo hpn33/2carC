@@ -35,6 +35,7 @@ class Car(private val side: Side) : Sprite() {
 		xTarget = regionWidth centerOfLine current
 		x = xTarget
 
+		rotate = 0f
 		rotation = 0f
 
 	}

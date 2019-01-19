@@ -42,8 +42,7 @@ class Play : State {
 
 
 		row()
-		debug()
-
+		
 		table {
 			inCell.grow()
 
@@ -98,13 +97,6 @@ class Play : State {
 			carL.draw(batch)
 			carR.draw(batch)
 
-		}
-	}
-
-	override fun reset() {
-		assets {
-			spawnL.reset()
-			spawnR.reset()
 		}
 	}
 

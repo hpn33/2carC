@@ -31,6 +31,9 @@ class Start : State {
 			carL.start()
 			carR.start()
 
+			spawnL.reset()
+			spawnR.reset()
+
 		}
 	}
 
