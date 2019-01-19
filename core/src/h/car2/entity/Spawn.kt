@@ -34,10 +34,7 @@ class Spawn(side: Side) {
 
 		// check for remove
 
-		debug { "remove" }
-
 		downWith(activeObject.size) {
-			debug { "${activeObject.size}" }
 
 
 			val item = activeObject[it]
@@ -59,7 +56,6 @@ class Spawn(side: Side) {
 
 	fun reset() {
 
-		debug { "reset" }
 		downWith(activeObject.size) {
 			pool.free(activeObject[it])
 		}
