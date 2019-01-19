@@ -34,3 +34,8 @@ fun near(current: Float, target: Float, offSet: Float): Float {
 		current
 
 }
+
+fun downWith(number: Int, function: (Int) -> Unit) {
+
+	(number - 1 downTo 0).forEach(function)
+}

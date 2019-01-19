@@ -1,13 +1,13 @@
 package h.car2.entity
 
-import com.badlogic.gdx.assets.AssetManager
 import com.badlogic.gdx.graphics.g2d.Batch
+import com.badlogic.gdx.utils.Array
 import com.badlogic.gdx.utils.Pool
-import h.car2.util.RegionName
 import h.car2.util.Timer
-import h.car2.util.atlas
+import h.car2.util.downWith
+import ktx.log.debug
 
-class Spawn(side: SpawnSide) {
+class Spawn(side: Side) {
 
 	private val pool = object : Pool<FallObject>() {
 		override fun newObject() = FallObject(side)
@@ -33,14 +33,19 @@ class Spawn(side: SpawnSide) {
 		}
 
 		// check for remove
-		(activeObject.size - 1 downTo 0).forEach {
+
+		debug { "remove" }
+
+		downWith(activeObject.size) {
+			debug { "${activeObject.size}" }
+
 
 			val item = activeObject[it]
 
 			item.update(delta)
 			item.collation(car)
 
-			if (!item.active) {
+			if (activeObject.size > 0 && !item.active) {
 				activeObject.removeAt(it)
 				pool.free(item)
 			}
@@ -52,32 +57,16 @@ class Spawn(side: SpawnSide) {
 	fun draw(batch: Batch) = activeObject.forEach { it.draw(batch) }
 
 
-}
+	fun reset() {
 
+		debug { "reset" }
+		downWith(activeObject.size) {
+			pool.free(activeObject[it])
+		}
 
-sealed class SpawnSide(private val assetManager: AssetManager) {
+		activeObject.clear()
 
-	abstract val coin: String
-	abstract val block: String
-
-	abstract val lines: Pair<Int, Int>
-
-	val coinTexture get() = assetManager.atlas(coin)
-	val blockTexture get() = assetManager.atlas(block)
-
-
-	class Right(assetManager: AssetManager) : SpawnSide(assetManager) {
-		override val coin = RegionName.coinRed
-		override val block = RegionName.blockRed
-
-		override val lines: Pair<Int, Int> = LinesRight.lines
+		timer.reset()
 	}
 
-
-	class Left(assetManager: AssetManager) : SpawnSide(assetManager) {
-		override val coin = RegionName.coinBlue
-		override val block = RegionName.blockBlue
-
-		override val lines: Pair<Int, Int> = LinesLeft.lines
-	}
 }

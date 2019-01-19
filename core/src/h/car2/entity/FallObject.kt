@@ -1,12 +1,15 @@
 package h.car2.entity
 
+import com.badlogic.gdx.graphics.g2d.Batch
 import com.badlogic.gdx.graphics.g2d.Sprite
 import com.badlogic.gdx.math.MathUtils
 import com.badlogic.gdx.utils.Pool
+import h.car2.screen.PlayScreen.Companion.stateManager
+import h.car2.screen.stage.Over
 import h.car2.util.centerOfLine
-import h.car2.util.wHeight
+import h.car2.util.wh
 
-class FallObject(private val side: SpawnSide) : Sprite(), Pool.Poolable {
+class FallObject(private val side: Side) : Sprite(), Pool.Poolable {
 
 	var active = true
 
@@ -49,7 +52,7 @@ class FallObject(private val side: SpawnSide) : Sprite(), Pool.Poolable {
 			else -> regionWidth centerOfLine side.lines.first
 		}
 
-		y = wHeight + regionHeight + 10f
+		y = wh + regionHeight + 10f
 
 	}
 
@@ -61,6 +64,12 @@ class FallObject(private val side: SpawnSide) : Sprite(), Pool.Poolable {
 		if (y <= -regionHeight)
 			active = false
 
+		if (type == Type.Coin && y <= wh / 9f - 10) {
+			active = false
+			stateManager.set<Over>()
+		}
+
+
 	}
 
 	fun collation(car: Car) {
@@ -68,9 +77,8 @@ class FallObject(private val side: SpawnSide) : Sprite(), Pool.Poolable {
 			when (type) {
 
 				Type.Coin -> scoreUp()
-				Type.Block -> {
+				Type.Block -> stateManager.set<Over>()
 
-				}
 				Type.None -> Unit
 
 			}
@@ -79,6 +87,12 @@ class FallObject(private val side: SpawnSide) : Sprite(), Pool.Poolable {
 		}
 	}
 
+
+	override fun draw(batch: Batch?) {
+
+		if (type == Type.None) return
+		super.draw(batch)
+	}
 
 	override fun reset() {
 		type = Type.None

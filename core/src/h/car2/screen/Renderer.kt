@@ -1,46 +1,45 @@
 package h.car2.screen
 
 import com.badlogic.gdx.graphics.OrthographicCamera
+import com.badlogic.gdx.graphics.g2d.Batch
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.badlogic.gdx.utils.viewport.FitViewport
 import com.badlogic.gdx.utils.viewport.StretchViewport
-import h.car2.util.StretchboxingViewport
+import h.car2.screen.stage.State
+import h.car2.screen.stage.StateManager
 import h.car2.util.isMobile
-import h.car2.util.wHeight
-import h.car2.util.wWidth
-import ktx.app.LetterboxingViewport
+import h.car2.util.wh
+import h.car2.util.ww
+import ktx.app.clearScreen
 import ktx.graphics.use
 
 class Renderer {
 
-	private val camera = OrthographicCamera()
-
-	private val viewport =
+	val viewport =
 			if (isMobile)
-//				StretchboxingViewport(aspectRatio = wWidth / wHeight)
-				StretchViewport(wWidth, wHeight, camera)
+//				StretchboxingViewport(aspectRatio = ww / wh)
+				StretchViewport(ww, wh)
 			else
-//				LetterboxingViewport(aspectRatio = wWidth / wHeight)
-				FitViewport(wWidth, wHeight, camera)
+//				LetterboxingViewport(aspectRatio = ww / wh)
+				FitViewport(ww, wh)
 
 
-	private val batch = SpriteBatch()
+	val batch = SpriteBatch()
 
 
 	fun resize(width: Int, height: Int) =
 			viewport.update(width, height, true)
 
 
-	fun draw(assets: Assets) {
+	fun draw(func: (SpriteBatch) -> Unit) {
 
 		batch.projectionMatrix = viewport.camera.combined
 		batch.use {
 
-			assets.draw(it)
+			func(it)
 
 		}
 
 	}
-
 
 }

@@ -1,8 +1,9 @@
 package h.car2.entity
 
 import com.badlogic.gdx.assets.AssetManager
-import com.badlogic.gdx.graphics.g2d.SpriteBatch
+import com.badlogic.gdx.graphics.g2d.Batch
 import h.car2.util.*
+import ktx.log.debug
 
 class World(private val assetManager: AssetManager) {
 
@@ -19,25 +20,27 @@ class World(private val assetManager: AssetManager) {
 	fun update(delta: Float) {
 
 
-		offSetLine -= delta
+		val speed = 30 * delta
+
+		offSetLine -= speed
 
 		if (offSetLine < -line.regionHeight)
 			offSetLine = 0f
 
-		offSetStreet -= delta
+		offSetStreet -= speed
 
 		if (offSetStreet < -street.regionHeight)
 			offSetStreet = 0f
 	}
 
 
-	fun draw(batch: SpriteBatch) {
+	fun draw(batch: Batch) {
 
 
 		var x = 0f
 		var y = offSetStreet
-		while (x < wWidth + street.regionWidth) {
-			while (y < wHeight + street.regionHeight) {
+		while (x < ww + street.regionWidth) {
+			while (y < wh + street.regionHeight) {
 
 				batch.draw(street, x, y)
 
@@ -51,7 +54,7 @@ class World(private val assetManager: AssetManager) {
 		}
 
 		y = offSetLine
-		while (y < wHeight + line.regionWidth) {
+		while (y < wh + line.regionWidth) {
 
 			val w = line.regionWidth / 2f
 
@@ -67,7 +70,6 @@ class World(private val assetManager: AssetManager) {
 			y += line.regionHeight
 
 		}
-
 	}
 
 

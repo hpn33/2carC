@@ -109,6 +109,7 @@ project(":core") {
         compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion"
 
         compile "io.github.libktx:ktx-app:$ktx"
+        compile "io.github.libktx:ktx-log:$ktx"
         compile "io.github.libktx:ktx-graphics:$ktx"
         compile "io.github.libktx:ktx-scene2d:$ktx"
         compile "io.github.libktx:ktx-actors:$ktx"

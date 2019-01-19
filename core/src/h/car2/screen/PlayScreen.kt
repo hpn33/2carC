@@ -1,39 +1,45 @@
 package h.car2.screen
 
 import com.badlogic.gdx.ScreenAdapter
-import h.car2.Game
-import h.car2.screen.stage.StageManager
+import h.car2.screen.stage.*
+import ktx.app.clearScreen
 
 class PlayScreen : ScreenAdapter() {
 
 
-	private val asset = Assets()
-	private val renderer = Renderer()
-//	private val stageManager = StageManager(asset)
+	companion object {
 
-	override fun show() {
-		asset.load()
+		val assets = Assets()
+		val stateManager = StateManager<State>()
 
 	}
 
-	override fun resize(width: Int, height: Int) = renderer.resize(width, height)
+	override fun show() {
+
+		stateManager.add(Load())
+
+		stateManager.set<Load>()
+
+	}
+
+	override fun resize(width: Int, height: Int) = stateManager.resize(width, height)
 
 
 	override fun render(delta: Float) {
+		clearScreen(0f, 0f, 0f, 1f)
 
-//		stageManager.update ()
+		stateManager.update(delta)
 
-		asset.update(delta)
+		stateManager.draw()
 
-		renderer.draw(asset)
 	}
 
-	override fun hide() {
-		dispose()
-	}
+	override fun hide() = dispose()
 
-	override fun dispose() {
-		asset.dispose()
-	}
+	override fun dispose() = assets.dispose()
+
 
 }
+
+fun assets(function: Assets.() -> Unit) =
+		PlayScreen.assets.function()

@@ -1,7 +1,7 @@
 package h.car2.util
 
 
-const val lineWidth = wWidth / 4
+const val lineWidth = ww / 4
 
 const val halfLine = lineWidth / 2
 

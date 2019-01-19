@@ -1,12 +1,11 @@
 package h.car2.entity
 
 import com.badlogic.gdx.Input
-import com.badlogic.gdx.assets.AssetManager
 import com.badlogic.gdx.graphics.g2d.Sprite
 import com.badlogic.gdx.math.MathUtils
 import h.car2.util.*
 
-class Car(private val side: CarSide) : Sprite() {
+class Car(private val side: Side) : Sprite() {
 
 
 	private var current = side.firstLine
@@ -14,29 +13,38 @@ class Car(private val side: CarSide) : Sprite() {
 	private var xTarget = 0f
 	private var rotate = 0f
 
+	fun load() {
 
-	fun start() {
-
-
-		val region = side.getTexture()
+		val region = side.carTexture
 
 		setRegion(region)
 		setColor(1f, 1f, 1f, 1f)
 		setSize(region.regionWidth.toFloat(), region.regionHeight.toFloat())
 		setOrigin(width / 2, height / 2)
 
-		y = wHeight / 9f
+		start()
+	}
 
-		xTarget = regionWidth centerOfLine side.firstLine
+
+	fun start() {
+
+		y = wh / 9f
+
+		current = side.firstLine
+
+		xTarget = regionWidth centerOfLine current
 		x = xTarget
+
+		rotation = 0f
 
 	}
 
 	fun update(delta: Float) {
-		if (side is CarSide.Right)
+
+		if (side is Side.Right)
 			if (keyJust(Input.Keys.D) || keyJust(Input.Keys.RIGHT))
 				changePosition()
-		if (side is CarSide.Left)
+		if (side is Side.Left)
 			if (keyJust(Input.Keys.A) || keyJust(Input.Keys.LEFT))
 				changePosition()
 
@@ -54,7 +62,7 @@ class Car(private val side: CarSide) : Sprite() {
 	}
 
 
-	private fun changePosition() {
+	internal fun changePosition() {
 		current =
 				if (current == side.lines.first)
 					side.lines.second
@@ -66,30 +74,6 @@ class Car(private val side: CarSide) : Sprite() {
 
 		rotate = if (xTarget > x) -45f else 45f
 
-	}
-
-}
-
-
-sealed class CarSide(private val assetManager: AssetManager) {
-
-	abstract val firstLine: Int
-	abstract val lines: Pair<Int, Int>
-	abstract val textureName: String
-
-	fun getTexture() = assetManager.atlas(textureName)
-
-
-	class Right(assetManager: AssetManager) : CarSide(assetManager) {
-		override val firstLine = 4
-		override val lines = LinesRight.lines
-		override val textureName = RegionName.carRed
-	}
-
-	class Left(assetManager: AssetManager) : CarSide(assetManager) {
-		override val firstLine = 1
-		override val lines = LinesLeft.lines
-		override val textureName = RegionName.carBlue
 	}
 
 }

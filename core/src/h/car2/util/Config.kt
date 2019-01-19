@@ -1,5 +1,5 @@
 package h.car2.util
 
-const val wWidth = 200f
-const val wHeight = 340f
+const val ww = 200f
+const val wh = 340f
 
