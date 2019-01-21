@@ -15,14 +15,18 @@ import ktx.graphics.use
 
 class Renderer {
 
-	val viewport =
-			if (isMobile)
-//				StretchboxingViewport(aspectRatio = ww / wh)
-				StretchViewport(ww, wh)
-			else
-//				LetterboxingViewport(aspectRatio = ww / wh)
-				FitViewport(ww, wh)
+	companion object {
+		val viewport =
 
+				if (isMobile)
+//				StretchboxingViewport(aspectRatio = ww / wh)
+					StretchViewport(ww, wh)
+				else
+//				LetterboxingViewport(aspectRatio = ww / wh)
+					FitViewport(ww, wh)
+
+		val camera get() = viewport.camera
+	}
 
 	val batch = SpriteBatch()
 
