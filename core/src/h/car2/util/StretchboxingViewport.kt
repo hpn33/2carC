@@ -8,7 +8,7 @@ import com.badlogic.gdx.utils.viewport.ScalingViewport
 /**
  * Combines [screen][com.badlogic.gdx.utils.viewport.ScreenViewport] and
  * [fit][com.badlogic.gdx.utils.viewport.FitViewport] viewports. Similarly to ScreenViewport, world size is changed on
- * each update (resize), so [update] should be generally called with `true` parameter (camera should be centered).
+ * each apply (resize), so [update] should be generally called with `true` parameter (camera should be centered).
  * Tries to keep the passed aspect ratio by applying letterboxing - horizontal or vertical black bars.
  *
  * On contrary to regular ScreenViewport, this viewport analyzes screen density (pixel per inch ratio) to preserve
@@ -44,7 +44,7 @@ class StretchboxingViewport(
 	}
 
 	/**
-	 * Forces update of current pixel per unit ratio according to screen density.
+	 * Forces apply of current pixel per unit ratio according to screen density.
 	 * @see com.badlogic.gdx.Graphics.getDensity
 	 * @see com.badlogic.gdx.Graphics.getPpiX
 	 * @see com.badlogic.gdx.Graphics.getPpiY
@@ -59,13 +59,13 @@ class StretchboxingViewport(
 		super.update(screenWidth, screenHeight, centerCamera)
 	}
 
-	/** Forces update of current world size according to window size. Will try to keep the set aspect ratio. */
+	/** Forces apply of current world size according to window size. Will try to keep the set aspect ratio. */
 	fun updateWorldSize() {
 		updateWorldSize(Gdx.graphics.width, Gdx.graphics.height)
 	}
 
 	/**
-	 * Forces update of current world size according to window size. Will try to keep the set aspect ratio.
+	 * Forces apply of current world size according to window size. Will try to keep the set aspect ratio.
 	 * @param screenWidth current screen width.
 	 * @param screenHeight current screen height.
 	 */

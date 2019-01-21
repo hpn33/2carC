@@ -5,10 +5,9 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont
 import com.badlogic.gdx.math.MathUtils
 import com.badlogic.gdx.scenes.scene2d.ui.Label
 import com.badlogic.gdx.scenes.scene2d.ui.Skin
-import h.car2.screen.PlayScreen.Companion.assets
+import h.car2.screen.Assets
 import h.car2.screen.PlayScreen.Companion.stateManager
 import h.car2.util.AssetsDescription
-import h.car2.util.Timer
 import h.car2.util.near
 import ktx.scene2d.Scene2DSkin
 import ktx.scene2d.label
@@ -40,16 +39,14 @@ class Load : State {
 
 	}
 
-	//	private val timer = Timer(.2f)
 	private var progress = 0f
 
 	override fun update(delta: Float) {
 
-//		timer.update(delta) {
-		if (assets.load() && progress == 1f) {
+		if (Assets.load() && progress == 1f) {
 
 
-			Scene2DSkin.defaultSkin = assets.manager[AssetsDescription.skin]
+			Scene2DSkin.defaultSkin = Assets.manager[AssetsDescription.skin]
 
 			with(stateManager) {
 
@@ -68,9 +65,8 @@ class Load : State {
 
 
 
-//			timer.stop()
 		} else {
-			progress = MathUtils.lerp(progress, assets.manager.progress, .2f)
+			progress = MathUtils.lerp(progress, Assets.manager.progress, .2f)
 
 			progress = near(progress, 1f, .1f)
 			progress = MathUtils.clamp(progress, 0f, 1f)
@@ -79,7 +75,6 @@ class Load : State {
 			lab.setText("%$value")
 
 		}
-//		}
 
 	}
 
