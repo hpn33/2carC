@@ -8,6 +8,8 @@ fun scoreUp() {
 	score++
 }
 
+const val speedy = -100f
+
 //enum class State{ Load, Menu, Start, Play, Pause, PreOver, Over }
 //
 //var correctState = State.Play
