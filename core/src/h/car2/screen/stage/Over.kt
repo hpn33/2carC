@@ -47,8 +47,18 @@ class Over : State {
 
 	}
 
+	override fun load() {
+
+		assets {
+			carL.start()
+			carR.start()
+		}
+	}
+
 	override fun update(delta: Float) {
 		assets {
+
+			world.setSpeed()
 
 			world.update(delta)
 		}
@@ -60,6 +70,9 @@ class Over : State {
 		assets {
 
 			world.draw(batch)
+
+			carL.draw(batch)
+			carR.draw(batch)
 		}
 	}
 

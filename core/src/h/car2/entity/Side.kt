@@ -1,6 +1,7 @@
 package h.car2.entity
 
 import com.badlogic.gdx.assets.AssetManager
+import com.badlogic.gdx.math.MathUtils
 import h.car2.util.RegionName
 import h.car2.util.atlas
 
@@ -17,6 +18,8 @@ sealed class Side(private val assetManager: AssetManager) {
 	internal val coinTexture get() = assetManager.atlas(coin)
 	internal val blockTexture get() = assetManager.atlas(block)
 
+	abstract val offset: Float
+
 
 	class Right(assetManager: AssetManager) : Side(assetManager) {
 		override val firstLine = 4
@@ -25,6 +28,8 @@ sealed class Side(private val assetManager: AssetManager) {
 		override val car = RegionName.carRed
 		override val coin = RegionName.coinRed
 		override val block = RegionName.blockRed
+
+		override val offset = MathUtils.random(50f, 150f)
 	}
 
 	class Left(assetManager: AssetManager) : Side(assetManager) {
@@ -34,6 +39,9 @@ sealed class Side(private val assetManager: AssetManager) {
 		override val car = RegionName.carBlue
 		override val coin = RegionName.coinBlue
 		override val block = RegionName.blockBlue
+
+		override val offset = MathUtils.random(20f, 200f)
+
 	}
 
 }

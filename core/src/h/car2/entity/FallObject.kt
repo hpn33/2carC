@@ -7,6 +7,7 @@ import com.badlogic.gdx.utils.Pool
 import h.car2.screen.PlayScreen.Companion.stateManager
 import h.car2.screen.stage.Over
 import h.car2.util.centerOfLine
+import h.car2.util.near
 import h.car2.util.wh
 import ktx.log.debug
 
@@ -30,11 +31,11 @@ class FallObject(private val side: Side) : Sprite(), Pool.Poolable {
 				type = Type.Coin
 				side.coinTexture
 			}
-			4, 5, 6, 7, 8 -> {
+			4, 5, 6, 7, 8, 9 -> {
 				type = Type.Block
 				side.blockTexture
 			}
-			0, 9 -> return
+			0 -> return
 			else -> return
 		}
 
@@ -53,15 +54,14 @@ class FallObject(private val side: Side) : Sprite(), Pool.Poolable {
 			else -> regionWidth centerOfLine side.lines.first
 		}
 
-		y = wh + regionHeight + 10f
+		y = wh + regionHeight + 10f + side.offset
 
 	}
 
-	fun update(delta: Float) {
+	fun update(delta: Float, speed: Float) {
 
-		y += speedy * delta
 
-		debug { "$speedy ${speedy * delta}" }
+		y += speed * delta
 
 
 		if (y <= -regionHeight)

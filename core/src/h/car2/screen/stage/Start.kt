@@ -1,7 +1,6 @@
 package h.car2.screen.stage
 
 import com.badlogic.gdx.graphics.g2d.Batch
-import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import h.car2.entity.score
 import h.car2.screen.PlayScreen.Companion.stateManager
 import h.car2.screen.assets
@@ -27,12 +26,13 @@ class Start : State {
 		score = 0
 
 		assets {
+			world.start()
 
 			carL.start()
 			carR.start()
 
-			spawnL.reset()
-			spawnR.reset()
+			spawnL.start()
+			spawnR.start()
 
 		}
 	}

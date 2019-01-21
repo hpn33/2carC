@@ -2,11 +2,10 @@ package h.car2.screen.stage
 
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.g2d.Batch
-import com.badlogic.gdx.graphics.g2d.SpriteBatch
+import h.car2.entity.Speed.low
 import h.car2.screen.assets
 import h.car2.screen.PlayScreen.Companion.stateManager
 import ktx.actors.onClick
-import ktx.log.debug
 import ktx.scene2d.table
 import ktx.scene2d.textButton
 
@@ -53,6 +52,10 @@ class Menu : State {
 	override fun load() {
 		assets {
 
+
+			world.setSpeed()
+			spawnL.setSpeed()
+			spawnR.setSpeed()
 
 			carL.load()
 			carR.load()

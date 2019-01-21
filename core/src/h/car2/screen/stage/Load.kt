@@ -5,7 +5,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont
 import com.badlogic.gdx.math.MathUtils
 import com.badlogic.gdx.scenes.scene2d.ui.Label
 import com.badlogic.gdx.scenes.scene2d.ui.Skin
-import h.car2.screen.Assets
+import h.car2.screen.PlayScreen.Companion.assets
 import h.car2.screen.PlayScreen.Companion.stateManager
 import h.car2.util.AssetsDescription
 import h.car2.util.near
@@ -43,10 +43,10 @@ class Load : State {
 
 	override fun update(delta: Float) {
 
-		if (Assets.load() && progress == 1f) {
+		if (assets.load() && progress == 1f) {
 
 
-			Scene2DSkin.defaultSkin = Assets.manager[AssetsDescription.skin]
+			Scene2DSkin.defaultSkin = assets.manager[AssetsDescription.skin]
 
 			with(stateManager) {
 
@@ -66,7 +66,7 @@ class Load : State {
 
 
 		} else {
-			progress = MathUtils.lerp(progress, Assets.manager.progress, .2f)
+			progress = MathUtils.lerp(progress, assets.manager.progress, .2f)
 
 			progress = near(progress, 1f, .1f)
 			progress = MathUtils.clamp(progress, 0f, 1f)
