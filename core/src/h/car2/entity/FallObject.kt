@@ -8,6 +8,7 @@ import h.car2.screen.PlayScreen.Companion.stateManager
 import h.car2.screen.stage.Over
 import h.car2.util.centerOfLine
 import h.car2.util.wh
+import ktx.log.debug
 
 class FallObject(private val side: Side) : Sprite(), Pool.Poolable {
 
@@ -58,7 +59,9 @@ class FallObject(private val side: Side) : Sprite(), Pool.Poolable {
 
 	fun update(delta: Float) {
 
-		y -= 100 * delta
+		y += speedy * delta
+
+		debug { "$speedy ${speedy * delta}" }
 
 
 		if (y <= -regionHeight)

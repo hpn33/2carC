@@ -2,74 +2,86 @@ package h.car2.entity
 
 import com.badlogic.gdx.assets.AssetManager
 import com.badlogic.gdx.graphics.g2d.Batch
+import h.car2.screen.Renderer.Companion.camera
 import h.car2.util.*
-import ktx.log.debug
 
 class World(private val assetManager: AssetManager) {
 
 
-	private val line by lazy { assetManager.atlas(RegionName.lineCenterStreet) }
-	private val centerLine by lazy { assetManager.atlas(RegionName.lineCenter1) }
-	private val street by lazy { assetManager.atlas(RegionName.street) }
 
 
-	var offSetLine = 0f
-	var offSetStreet = 0f
 
+	private val street
+			by lazy {
+				ParallaxLayout(assetManager.atlas(RegionName.street))
+						.apply {
+							speed.y = speedy
+
+							dimension.set(
+									camera.viewportWidth,
+									camera.viewportHeight)
+
+						}
+			}
+
+
+	private val centerLine by lazy {
+		ParallaxLayout(assetManager.atlas(RegionName.lineCenter1))
+				.apply {
+
+					speed.y = speedy
+					position.x = width linePosition 2
+					dimension.set(width / 2, camera.viewportHeight)
+
+					overlap.x(false)
+
+				}
+	}
+
+	private val lineL by lazy {
+		ParallaxLayout(assetManager.atlas(RegionName.lineCenterStreet))
+				.apply {
+
+					speed.y = speedy
+					position.x = width linePosition 1
+					dimension.set(width / 2, camera.viewportHeight)
+
+					overlap.x(false)
+
+				}
+	}
+
+	private val lineR by lazy {
+		ParallaxLayout(assetManager.atlas(RegionName.lineCenterStreet))
+				.apply {
+
+					speed.y = speedy
+					position.x = width linePosition 3
+					dimension.set(width / 2, camera.viewportHeight)
+
+					overlap.x(false)
+
+				}
+	}
 
 	fun update(delta: Float) {
 
+		street.update(delta)
 
-		val speed = 30 * delta
-
-		offSetLine -= speed
-
-		if (offSetLine < -line.regionHeight)
-			offSetLine = 0f
-
-		offSetStreet -= speed
-
-		if (offSetStreet < -street.regionHeight)
-			offSetStreet = 0f
+		centerLine.update(delta)
+		lineL.update(delta)
+		lineR.update(delta)
 	}
 
 
 	fun draw(batch: Batch) {
 
+		street.draw(batch)
 
-		var x = 0f
-		var y = offSetStreet
-		while (x < ww + street.regionWidth) {
-			while (y < wh + street.regionHeight) {
+		lineL.draw(batch)
+		centerLine.draw(batch)
+		lineR.draw(batch)
 
-				batch.draw(street, x, y)
-
-				y += street.regionHeight
-
-			}
-			y = offSetStreet
-			x += street.regionWidth
-
-
-		}
-
-		y = offSetLine
-		while (y < wh + line.regionWidth) {
-
-			val w = line.regionWidth / 2f
-
-			batch.draw(line,
-					w linePosition 1/* - centerLine.regionWidth / 2*/, y,
-					w, line.regionHeight.toFloat())
-
-			batch.draw(centerLine, centerLine.regionWidth linePosition 2, y)
-
-			batch.draw(line, w linePosition 3/* + centerLine.regionWidth / 2*/, y,
-					w, line.regionHeight.toFloat())
-
-			y += line.regionHeight
-
-		}
 	}
 
 

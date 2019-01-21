@@ -10,38 +10,38 @@ import h.car2.util.AssetsDescription
 class Assets {
 
 
-	internal val assetManager = AssetManager()
+	internal val manager = AssetManager()
 
 
-	internal val world = World(assetManager)
+	internal val world = World(manager)
 
-	internal val carR = Car(Side.Right(assetManager))
-	internal val carL = Car(Side.Left(assetManager))
+	internal val carR = Car(Side.Right(manager))
+	internal val carL = Car(Side.Left(manager))
 
-	internal val spawnR = Spawn(Side.Right(assetManager))
-	internal val spawnL = Spawn(Side.Left(assetManager))
+	internal val spawnR = Spawn(Side.Right(manager))
+	internal val spawnL = Spawn(Side.Left(manager))
 
 
 	fun load(): Boolean {
 
 
-		assetManager.load(AssetsDescription.atlas)
-		assetManager.load(AssetsDescription.skin)
+		manager.load(AssetsDescription.atlas)
+		manager.load(AssetsDescription.skin)
 
-		return assetManager.update()
+		return manager.update()
 	}
 
 	fun loadF() {
 
 
-		assetManager.load(AssetsDescription.atlas)
-		assetManager.load(AssetsDescription.skin)
+		manager.load(AssetsDescription.atlas)
+		manager.load(AssetsDescription.skin)
 
-		assetManager.finishLoading()
+		manager.finishLoading()
 
 	}
 
-	fun dispose() = assetManager.dispose()
+	fun dispose() = manager.dispose()
 
 
 }

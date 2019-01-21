@@ -49,7 +49,7 @@ class Load : State {
 		if (assets.load() && progress == 1f) {
 
 
-			Scene2DSkin.defaultSkin = assets.assetManager[AssetsDescription.skin]
+			Scene2DSkin.defaultSkin = assets.manager[AssetsDescription.skin]
 
 			with(stateManager) {
 
@@ -70,7 +70,7 @@ class Load : State {
 
 //			timer.stop()
 		} else {
-			progress = MathUtils.lerp(progress, assets.assetManager.progress, .2f)
+			progress = MathUtils.lerp(progress, assets.manager.progress, .2f)
 
 			progress = near(progress, 1f, .1f)
 			progress = MathUtils.clamp(progress, 0f, 1f)
