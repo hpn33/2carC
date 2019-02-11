@@ -49,14 +49,14 @@ class Car(private val side: Side) : Sprite() {
 			if (keyJust(Input.Keys.A) || keyJust(Input.Keys.LEFT))
 				changePosition()
 
-		x = MathUtils.lerp(x, xTarget, 6 * delta)
+		x = MathUtils.lerp(x, xTarget, 8 * delta)
 		x = near(x, xTarget, .2f)
 
 
 		if (x > xTarget && x < xTarget + halfLine) rotate = 0f
 		if (x < xTarget && x > xTarget - halfLine) rotate = 0f
 
-		rotation = MathUtils.lerp(rotation, rotate, 5 * delta)
+		rotation = MathUtils.lerp(rotation, rotate, 8 * delta)
 		rotation = near(rotation, rotate, 2f)
 
 

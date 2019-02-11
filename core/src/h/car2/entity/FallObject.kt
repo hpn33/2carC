@@ -94,7 +94,10 @@ class FallObject(private val side: Side) : Sprite(), Pool.Poolable {
 	override fun draw(batch: Batch?) {
 
 		if (type == Type.None) return
-		super.draw(batch)
+//		super.draw(batch)
+
+		batch?.draw(texture, x - width / 2, y, width * 2, height * 2,u, v, u2, v2)
+
 	}
 
 	override fun reset() {

@@ -1,9 +1,11 @@
 package h.car2.screen.stage
 
 import com.badlogic.gdx.graphics.g2d.Batch
+import h.car2.entity.Speed
 import h.car2.entity.score
+import h.car2.entity.speed
+import h.car2.screen.PlayScreen.Companion.assets
 import h.car2.screen.PlayScreen.Companion.stateManager
-import h.car2.screen.assets
 import h.car2.util.Timer
 import ktx.scene2d.label
 import ktx.scene2d.table
@@ -24,9 +26,10 @@ class Start : State {
 		timer.reset()
 
 		score = 0
+		speed = Speed.medium
 
-		assets {
-			world.start()
+		assets.apply {
+			world.setSpeed()
 
 			carL.start()
 			carR.start()
@@ -46,16 +49,14 @@ class Start : State {
 
 		}
 
-		assets {
+		assets.world.update(delta)
 
-			world.update(delta)
 
-		}
 	}
 
 
 	override fun draw(batch: Batch) {
-		assets {
+		assets.apply {
 
 			world.draw(batch)
 

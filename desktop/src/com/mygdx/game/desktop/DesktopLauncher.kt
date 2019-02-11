@@ -11,10 +11,10 @@ object DesktopLauncher {
 	@JvmStatic
 	fun main(arg: Array<String>) {
 		val config = LwjglApplicationConfiguration()
-				.apply {
-					width = (ww.toInt() * 5)
-					height = (wh.toInt() * 5).toInt()
-				}
+//				.apply {
+//					width = (ww.toInt() * 2)
+//					height = (wh.toInt() * 2)
+//				}
 		LwjglApplication(Game(), config)
 	}
 }

@@ -2,12 +2,10 @@ package h.car2.entity
 
 import com.badlogic.gdx.graphics.g2d.Batch
 import com.badlogic.gdx.math.MathUtils
-import com.badlogic.gdx.utils.Array
 import com.badlogic.gdx.utils.Pool
 import h.car2.util.Timer
 import h.car2.util.downWith
 import h.car2.util.near
-import ktx.log.debug
 
 class Spawn(side: Side) {
 
@@ -22,23 +20,26 @@ class Spawn(side: Side) {
 	private var currentSpeed = 0f
 	private var targetSpeed = 0f
 
-	fun setSpeed(value: Float = Speed.low) {
+	fun setSpeed(value: Float = speed) {
 		currentSpeed = value
 		targetSpeed = value
-	}
-
-	fun changeSpeed(value: Float) {
-
-		targetSpeed = value
-
 	}
 
 
 	fun update(delta: Float, car: Car) {
 
+		targetSpeed = speed
+
 		currentSpeed = MathUtils.lerp(currentSpeed, targetSpeed, 3 * delta)
 		currentSpeed = near(currentSpeed, targetSpeed, 1f)
 
+
+		timer.time = when (speed) {
+			Speed.medium -> .7f
+			Speed.high -> .5f
+			Speed.top -> .3f
+			else -> timer.time
+		}
 
 		// add
 		timer.update(delta) {
@@ -77,7 +78,6 @@ class Spawn(side: Side) {
 	fun start() {
 
 		setSpeed()
-		changeSpeed(Speed.medium)
 
 		downWith(activeObject.size) {
 			pool.free(activeObject[it])
@@ -87,5 +87,4 @@ class Spawn(side: Side) {
 
 		timer.reset()
 	}
-
 }

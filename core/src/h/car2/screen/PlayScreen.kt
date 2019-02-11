@@ -41,5 +41,5 @@ class PlayScreen : ScreenAdapter() {
 
 }
 
-fun assets(function: Assets.() -> Unit) =
-		PlayScreen.assets.function()
+//fun assets(function: Assets.() -> Unit) =
+//		PlayScreen.assets.function()

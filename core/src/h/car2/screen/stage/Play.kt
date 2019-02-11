@@ -5,8 +5,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label
 import h.car2.entity.score
 import h.car2.entity.scoreUp
 import h.car2.entity.touchArea
+import h.car2.screen.PlayScreen.Companion.assets
 import h.car2.screen.PlayScreen.Companion.stateManager
-import h.car2.screen.assets
 import ktx.actors.onClick
 import ktx.scene2d.label
 import ktx.scene2d.table
@@ -42,18 +42,18 @@ class Play : State {
 
 
 		row()
-		
+
 		table {
 			inCell.grow()
 
 			touchArea { cell ->
-				onClick { assets { carL.changePosition() } }
+				onClick { assets.carL.changePosition() }
 
 				cell.grow()
 			}
 
 			touchArea { cell ->
-				onClick { assets { carR.changePosition() } }
+				onClick { assets.carR.changePosition() }
 
 				cell.grow()
 			}
@@ -68,7 +68,7 @@ class Play : State {
 	}
 
 	override fun update(delta: Float) {
-		assets {
+		assets.apply {
 
 			world.update(delta)
 
@@ -87,7 +87,7 @@ class Play : State {
 
 
 	override fun draw(batch: Batch) {
-		assets {
+		assets.apply {
 
 			world.draw(batch)
 

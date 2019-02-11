@@ -2,8 +2,10 @@ package h.car2.screen.stage
 
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.g2d.Batch
+import h.car2.entity.Speed
+import h.car2.entity.speed
 import h.car2.screen.PlayScreen
-import h.car2.screen.assets
+import h.car2.screen.PlayScreen.Companion.assets
 import ktx.actors.onClick
 import ktx.scene2d.label
 import ktx.scene2d.table
@@ -49,25 +51,25 @@ class Over : State {
 
 	override fun load() {
 
-		assets {
+		speed = Speed.low
+
+		assets.apply {
+			world.setSpeed()
+
 			carL.start()
 			carR.start()
 		}
 	}
 
 	override fun update(delta: Float) {
-		assets {
+		assets.world.update(delta)
 
-			world.setSpeed()
-
-			world.update(delta)
-		}
 
 	}
 
 
 	override fun draw(batch: Batch) {
-		assets {
+		assets.apply {
 
 			world.draw(batch)
 

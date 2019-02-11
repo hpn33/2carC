@@ -60,7 +60,7 @@ class ParallaxLayout(private val layer: TextureRegion) {
 		}
 
 
-		minY = kotlin.run {
+		minY = run {
 			var y = position.y
 
 			if (overlap.down)

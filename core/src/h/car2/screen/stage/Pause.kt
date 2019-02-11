@@ -2,8 +2,8 @@ package h.car2.screen.stage
 
 import com.badlogic.gdx.graphics.g2d.Batch
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
+import h.car2.screen.PlayScreen.Companion.assets
 import h.car2.screen.PlayScreen.Companion.stateManager
-import h.car2.screen.assets
 import ktx.actors.onClick
 import ktx.scene2d.button
 import ktx.scene2d.label
@@ -44,7 +44,7 @@ class Pause : State {
 
 
 	override fun draw(batch: Batch) {
-		assets {
+		assets.apply {
 
 			world.draw(batch)
 

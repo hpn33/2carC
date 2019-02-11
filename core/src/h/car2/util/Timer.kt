@@ -1,7 +1,7 @@
 package h.car2.util
 
 class Timer(
-		private val time: Float,
+		internal var time: Float,
 		private val loop: Boolean = true) {
 
 	private var correctTime = 0f

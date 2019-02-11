@@ -7,7 +7,7 @@ import h.car2.screen.PlayScreen
 import h.car2.screen.Tst
 import ktx.app.KtxGame
 
-class Game : KtxGame<Screen>() {
+class Game : CustomGame() {
 
 
 	override fun create() {

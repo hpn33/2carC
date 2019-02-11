@@ -62,29 +62,20 @@ class World(private val assetManager: AssetManager) {
 				}
 	}
 
-	fun start() {
-
-		setSpeed()
-		changeSpeed(Speed.medium)
-	}
 
 	private var currentSpeed = 0f
 	private var targetSpeed = 0f
 
-	fun setSpeed(value: Float = Speed.low) {
+	fun setSpeed(value: Float = speed) {
 		currentSpeed = value
 		targetSpeed = value
 	}
 
-	fun changeSpeed(value: Float) {
-
-		targetSpeed = value
-
-	}
-
 	fun update(delta: Float) {
 
-		currentSpeed = MathUtils.lerp(currentSpeed, targetSpeed, 3*delta)
+		targetSpeed = speed
+
+		currentSpeed = MathUtils.lerp(currentSpeed, targetSpeed, 3 * delta)
 		currentSpeed = near(currentSpeed, targetSpeed, 1f)
 
 		street.apply {
