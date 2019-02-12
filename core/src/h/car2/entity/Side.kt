@@ -2,10 +2,10 @@ package h.car2.entity
 
 import com.badlogic.gdx.assets.AssetManager
 import com.badlogic.gdx.math.MathUtils
+import h.car2.screen.PlayScreen.Companion.assets
 import h.car2.util.RegionName
-import h.car2.util.atlas
 
-sealed class Side(private val assetManager: AssetManager) {
+sealed class Side {
 
 	abstract val firstLine: Int
 	abstract val lines: Pair<Int, Int>
@@ -14,14 +14,14 @@ sealed class Side(private val assetManager: AssetManager) {
 	abstract val block: String
 	abstract val car: String
 
-	internal val carTexture get() = assetManager.atlas(car)
-	internal val coinTexture get() = assetManager.atlas(coin)
-	internal val blockTexture get() = assetManager.atlas(block)
+	internal val carTexture get() = assets.atlas(car)
+	internal val coinTexture get() = assets.atlas(coin)
+	internal val blockTexture get() = assets.atlas(block)
 
 	abstract val offset: Float
 
 
-	class Right(assetManager: AssetManager) : Side(assetManager) {
+	class Right : Side() {
 		override val firstLine = 4
 		override val lines: Pair<Int, Int> = 3 to 4
 
@@ -32,7 +32,7 @@ sealed class Side(private val assetManager: AssetManager) {
 		override val offset = MathUtils.random(50f, 150f)
 	}
 
-	class Left(assetManager: AssetManager) : Side(assetManager) {
+	class Left : Side() {
 		override val firstLine = 1
 		override val lines: Pair<Int, Int> = 1 to 2
 

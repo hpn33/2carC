@@ -2,6 +2,7 @@ package h.car2.screen
 
 import com.badlogic.gdx.ScreenAdapter
 import h.car2.screen.stage.*
+import h.car2.util.AssetsDescription
 import ktx.app.clearScreen
 
 class PlayScreen : ScreenAdapter() {
@@ -36,7 +37,11 @@ class PlayScreen : ScreenAdapter() {
 
 	override fun hide() = dispose()
 
-	override fun dispose() = assets.dispose()
+	override fun dispose() {
+
+		assets[AssetsDescription.music].stop()
+		assets.dispose()
+	}
 
 
 }

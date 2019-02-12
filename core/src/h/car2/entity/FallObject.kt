@@ -4,8 +4,10 @@ import com.badlogic.gdx.graphics.g2d.Batch
 import com.badlogic.gdx.graphics.g2d.Sprite
 import com.badlogic.gdx.math.MathUtils
 import com.badlogic.gdx.utils.Pool
+import h.car2.screen.PlayScreen.Companion.assets
 import h.car2.screen.PlayScreen.Companion.stateManager
 import h.car2.screen.stage.Over
+import h.car2.util.AssetsDescription
 import h.car2.util.centerOfLine
 import h.car2.util.near
 import h.car2.util.wh
@@ -19,7 +21,6 @@ class FallObject(private val side: Side) : Sprite(), Pool.Poolable {
 	enum class Type { None, Coin, Block }
 
 	var type = Type.None
-
 
 	fun init() {
 
@@ -79,8 +80,14 @@ class FallObject(private val side: Side) : Sprite(), Pool.Poolable {
 		if (boundingRectangle.overlaps(car.boundingRectangle)) {
 			when (type) {
 
-				Type.Coin -> scoreUp()
-				Type.Block -> stateManager.set<Over>()
+				Type.Coin -> {
+					assets[AssetsDescription.coin].play()
+					scoreUp()
+				}
+				Type.Block -> {
+					assets[AssetsDescription.block].play()
+					stateManager.set<Over>()
+				}
 
 				Type.None -> Unit
 

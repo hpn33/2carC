@@ -35,7 +35,7 @@ class Over : State {
 
 		row().space(10f)
 
-		textButton("enughe") {
+		textButton("menu") {
 
 			onClick {
 				PlayScreen.stateManager.set<Menu>()
@@ -61,11 +61,8 @@ class Over : State {
 		}
 	}
 
-	override fun update(delta: Float) {
-		assets.world.update(delta)
+	override fun update(delta: Float) =assets.world.update(delta)
 
-
-	}
 
 
 	override fun draw(batch: Batch) {

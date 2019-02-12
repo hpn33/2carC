@@ -7,6 +7,7 @@ import h.car2.entity.Speed.low
 import h.car2.entity.speed
 import h.car2.screen.PlayScreen.Companion.assets
 import h.car2.screen.PlayScreen.Companion.stateManager
+import h.car2.util.AssetsDescription
 import ktx.actors.onClick
 import ktx.scene2d.table
 import ktx.scene2d.textButton
@@ -64,6 +65,10 @@ class Menu : State {
 			carL.load()
 			carR.load()
 
+			assets[AssetsDescription.music].apply {
+				isLooping = true
+				play()
+			}
 		}
 
 	}

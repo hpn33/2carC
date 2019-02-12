@@ -13,8 +13,6 @@ var speed = Speed.low
 fun scoreUp() {
 	score++
 	speedUpdate()
-
-	println("$speed")
 }
 
 

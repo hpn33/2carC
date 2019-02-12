@@ -41,12 +41,15 @@ class Load : State {
 
 	private var progress = 0f
 
+	override fun load() = assets.load()
+
+
 	override fun update(delta: Float) {
 
-		if (assets.load() && progress == 1f) {
+		if (assets.update() && progress == 1f) {
 
 
-			Scene2DSkin.defaultSkin = assets.manager[AssetsDescription.skin]
+			Scene2DSkin.defaultSkin = assets[AssetsDescription.skin]
 
 			with(stateManager) {
 
@@ -62,7 +65,6 @@ class Load : State {
 			}
 
 			stateManager.remove<Load>()
-
 
 
 		} else {

@@ -32,7 +32,7 @@ class Tst : ScreenAdapter() {
 		assets.loadF()
 
 
-		val street = assets.manager.atlas(RegionName.street)
+		val street = assets.atlas(RegionName.street)
 
 		streetP = ParallaxLayout(street)
 

@@ -137,4 +137,6 @@ interface State {
 
 	fun reset() {}
 
+	fun dispose() {}
+
 }

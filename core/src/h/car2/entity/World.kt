@@ -3,15 +3,16 @@ package h.car2.entity
 import com.badlogic.gdx.assets.AssetManager
 import com.badlogic.gdx.graphics.g2d.Batch
 import com.badlogic.gdx.math.MathUtils
+import h.car2.screen.PlayScreen.Companion.assets
 import h.car2.screen.Renderer.Companion.camera
 import h.car2.util.*
 
-class World(private val assetManager: AssetManager) {
+class World {
 
 
 	private val street
 			by lazy {
-				ParallaxLayout(assetManager.atlas(RegionName.street))
+				ParallaxLayout(assets.atlas(RegionName.street))
 						.apply {
 
 							speed.y = Speed.low
@@ -24,7 +25,7 @@ class World(private val assetManager: AssetManager) {
 
 
 	private val centerLine by lazy {
-		ParallaxLayout(assetManager.atlas(RegionName.lineCenter1))
+		ParallaxLayout(assets.atlas(RegionName.lineCenter1))
 				.apply {
 
 					speed.y = Speed.low
@@ -37,7 +38,7 @@ class World(private val assetManager: AssetManager) {
 	}
 
 	private val lineL by lazy {
-		ParallaxLayout(assetManager.atlas(RegionName.lineCenterStreet))
+		ParallaxLayout(assets.atlas(RegionName.lineCenterStreet))
 				.apply {
 
 					speed.y = Speed.low
@@ -50,7 +51,7 @@ class World(private val assetManager: AssetManager) {
 	}
 
 	private val lineR by lazy {
-		ParallaxLayout(assetManager.atlas(RegionName.lineCenterStreet))
+		ParallaxLayout(assets.atlas(RegionName.lineCenterStreet))
 				.apply {
 
 					speed.y = Speed.low
@@ -78,19 +79,15 @@ class World(private val assetManager: AssetManager) {
 		currentSpeed = MathUtils.lerp(currentSpeed, targetSpeed, 3 * delta)
 		currentSpeed = near(currentSpeed, targetSpeed, 1f)
 
-		street.apply {
-			speed.y = currentSpeed
-		}
+		street.speed.y = currentSpeed
 
-		centerLine.apply {
-			speed.y = currentSpeed
-		}
-		lineL.apply {
-			speed.y = currentSpeed
-		}
-		lineR.apply {
-			speed.y = currentSpeed
-		}
+
+		centerLine.speed.y = currentSpeed
+
+		lineL.speed.y = currentSpeed
+
+		lineR.speed.y = currentSpeed
+
 
 
 		street.update(delta)

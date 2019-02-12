@@ -1,5 +1,6 @@
 package h.car2.screen
 
+import com.badlogic.gdx.assets.AssetDescriptor
 import com.badlogic.gdx.assets.AssetManager
 import h.car2.entity.Car
 import h.car2.entity.Side
@@ -13,33 +14,47 @@ class Assets {
 	internal val manager = AssetManager()
 
 
-	internal val world = World(manager)
+	internal val world = World()
 
-	internal val carR = Car(Side.Right(manager))
-	internal val carL = Car(Side.Left(manager))
+	private val right = Side.Right()
+	private val left = Side.Left()
 
-	internal val spawnR = Spawn(Side.Right(manager))
-	internal val spawnL = Spawn(Side.Left(manager))
+	internal val carR = Car(right)
+	internal val carL = Car(left)
+
+	internal val spawnR = Spawn(right)
+	internal val spawnL = Spawn(left)
 
 
-	fun load(): Boolean {
+	fun load() =
+			with(manager) {
 
+				load(AssetsDescription.atlas)
+				load(AssetsDescription.skin)
 
-		manager.load(AssetsDescription.atlas)
-		manager.load(AssetsDescription.skin)
+				load(AssetsDescription.music)
+				load(AssetsDescription.coin)
+				load(AssetsDescription.block)
 
-		return manager.update()
-	}
+			}
+
 
 	fun loadF() {
 
-
-		manager.load(AssetsDescription.atlas)
-		manager.load(AssetsDescription.skin)
-
+		load()
 		manager.finishLoading()
 
 	}
+
+	operator fun <T> get(descriptor: AssetDescriptor<T>) = manager.get(descriptor)!!
+
+	fun atlas(regionName: String) =
+			get(AssetsDescription.atlas).findRegion(regionName)!!
+
+	/**
+	 * just for loading
+	 */
+	fun update() = manager.update()
 
 	fun dispose() = manager.dispose()
 
