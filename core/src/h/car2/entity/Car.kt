@@ -1,9 +1,15 @@
 package h.car2.entity
 
 import com.badlogic.gdx.Input
+import com.badlogic.gdx.graphics.g2d.Batch
 import com.badlogic.gdx.graphics.g2d.Sprite
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer
 import com.badlogic.gdx.math.MathUtils
+import com.badlogic.gdx.math.Polygon
+import h.car2.screen.PlayScreen
+import h.car2.screen.PlayScreen.Companion.renderer
 import h.car2.util.*
+import ktx.graphics.use
 
 class Car(private val side: Side) : Sprite() {
 
@@ -12,6 +18,11 @@ class Car(private val side: Side) : Sprite() {
 
 	private var xTarget = 0f
 	private var rotate = 0f
+
+	internal val bound = Polygon()
+
+	private val scale = 1
+
 
 	fun load() {
 
@@ -38,6 +49,14 @@ class Car(private val side: Side) : Sprite() {
 		rotate = 0f
 		rotation = 0f
 
+
+		bound.vertices = arrayOf(0f, 0f,
+				0f, height,
+				width, height,
+				width, 0f).toFloatArray()
+		bound.setPosition(x, y)
+		bound.rotation = 0f
+
 	}
 
 	fun update(delta: Float) {
@@ -59,7 +78,8 @@ class Car(private val side: Side) : Sprite() {
 		rotation = MathUtils.lerp(rotation, rotate, 8 * delta)
 		rotation = near(rotation, rotate, 2f)
 
-
+		bound.setPosition(x, y)
+		bound.rotation = rotation
 	}
 
 
@@ -74,6 +94,13 @@ class Car(private val side: Side) : Sprite() {
 		xTarget = regionWidth centerOfLine current
 
 		rotate = if (xTarget > x) -45f else 45f
+
+	}
+
+	override fun draw(batch: Batch?) {
+		super.draw(batch)
+
+		renderer.draw(bound.transformedVertices)
 
 	}
 

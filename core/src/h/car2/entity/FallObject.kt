@@ -2,15 +2,17 @@ package h.car2.entity
 
 import com.badlogic.gdx.graphics.g2d.Batch
 import com.badlogic.gdx.graphics.g2d.Sprite
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer
+import com.badlogic.gdx.math.Intersector
 import com.badlogic.gdx.math.MathUtils
+import com.badlogic.gdx.math.Polygon
 import com.badlogic.gdx.utils.Pool
 import h.car2.screen.PlayScreen.Companion.assets
+import h.car2.screen.PlayScreen.Companion.renderer
 import h.car2.screen.PlayScreen.Companion.stateManager
 import h.car2.screen.stage.Over
-import h.car2.util.AssetsDescription
-import h.car2.util.centerOfLine
-import h.car2.util.near
-import h.car2.util.wh
+import h.car2.util.*
+import ktx.graphics.use
 import ktx.log.debug
 
 class FallObject(private val side: Side) : Sprite(), Pool.Poolable {
@@ -22,8 +24,14 @@ class FallObject(private val side: Side) : Sprite(), Pool.Poolable {
 
 	var type = Type.None
 
-	fun init() {
+	private val bound
+		get() = Polygon(
+				arrayOf(x, y,
+						x, y + height,
+						x + width, y + height,
+						x + width, y).toFloatArray())
 
+	fun init() {
 
 		val random = MathUtils.random(0, 9)
 
@@ -77,15 +85,18 @@ class FallObject(private val side: Side) : Sprite(), Pool.Poolable {
 	}
 
 	fun collation(car: Car) {
-		if (boundingRectangle.overlaps(car.boundingRectangle)) {
+
+
+//		if (boundingRectangle.overlaps(car.boundingRectangle)) {
+		if (Intersector.overlapConvexPolygons(car.bound, bound)) {
 			when (type) {
 
 				Type.Coin -> {
-					assets[AssetsDescription.coin].play()
+					if (Setting.sound) assets[AssetsDescription.coin].play()
 					scoreUp()
 				}
 				Type.Block -> {
-					assets[AssetsDescription.block].play()
+					if (Setting.sound) assets[AssetsDescription.block].play()
 					stateManager.set<Over>()
 				}
 
@@ -103,7 +114,14 @@ class FallObject(private val side: Side) : Sprite(), Pool.Poolable {
 		if (type == Type.None) return
 //		super.draw(batch)
 
-		batch?.draw(texture, x - width / 2, y, width * 2, height * 2,u, v, u2, v2)
+		batch?.draw(texture,
+				x - width / 2, y,
+				width * 2, height * 2,
+				u, v, u2, v2)
+
+
+		renderer.draw(bound.transformedVertices)
+
 
 	}
 

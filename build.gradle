@@ -28,7 +28,7 @@ allprojects {
         box2DLightsVersion = '1.4'
         ashleyVersion = '1.7.3'
         aiVersion = '1.8.1'
-        ktx = '1.9.8-b5'
+        ktx = '1.9.9-b1'
     }
 
     repositories {
@@ -114,6 +114,11 @@ project(":core") {
         compile "io.github.libktx:ktx-scene2d:$ktx"
         compile "io.github.libktx:ktx-actors:$ktx"
 
+//        compile "io.github.libktx:ktx-inject:$ktx"
+//        compile "io.github.libktx:ktx-async:$ktx"
+//        compile "io.github.libktx:ktx-assets:$ktx"
+
+//        compile 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.1.1'
 
     }
 }

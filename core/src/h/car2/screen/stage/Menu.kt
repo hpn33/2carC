@@ -3,16 +3,21 @@ package h.car2.screen.stage
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.g2d.Batch
 import h.car2.entity.Speed
-import h.car2.entity.Speed.low
 import h.car2.entity.speed
 import h.car2.screen.PlayScreen.Companion.assets
 import h.car2.screen.PlayScreen.Companion.stateManager
 import h.car2.util.AssetsDescription
+import h.car2.util.Setting
 import ktx.actors.onClick
+import ktx.scene2d.KCheckBox
+import ktx.scene2d.checkBox
 import ktx.scene2d.table
 import ktx.scene2d.textButton
 
 class Menu : State {
+
+	lateinit var soundCheck: KCheckBox
+	lateinit var musicCheck: KCheckBox
 
 	override val layout = table {
 
@@ -44,8 +49,18 @@ class Menu : State {
 		table {
 			left()
 
-			textButton("S")
-			textButton("M")
+			checkBox("S") {
+				isChecked = Setting.sound
+
+				onClick { Setting.sound = !Setting.sound }
+			}.also { box -> soundCheck = box }
+
+			checkBox("M") {
+				isChecked = Setting.music
+				onClick {
+					Setting.music = !Setting.music
+				}
+			}.also { box -> musicCheck = box }
 
 			inCell.growX()
 		}
@@ -65,10 +80,12 @@ class Menu : State {
 			carL.load()
 			carR.load()
 
-			assets[AssetsDescription.music].apply {
-				isLooping = true
-				play()
-			}
+			if (Setting.music)
+				get(AssetsDescription.music).apply {
+					isLooping = true
+					play()
+				}
+
 		}
 
 	}
@@ -76,7 +93,6 @@ class Menu : State {
 	override fun update(delta: Float) {
 
 		assets.world.update(delta)
-
 
 	}
 

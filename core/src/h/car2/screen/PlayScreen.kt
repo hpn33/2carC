@@ -1,9 +1,14 @@
 package h.car2.screen
 
 import com.badlogic.gdx.ScreenAdapter
+import com.badlogic.gdx.graphics.Camera
+import com.badlogic.gdx.graphics.OrthographicCamera
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer
+import h.car2.screen.Renderer.Companion.camera
 import h.car2.screen.stage.*
 import h.car2.util.AssetsDescription
 import ktx.app.clearScreen
+import ktx.graphics.use
 
 class PlayScreen : ScreenAdapter() {
 
@@ -12,6 +17,8 @@ class PlayScreen : ScreenAdapter() {
 
 		val assets = Assets()
 		val stateManager = StateManager<State>()
+
+		val renderer = DebugRenderer()
 
 	}
 
@@ -31,13 +38,19 @@ class PlayScreen : ScreenAdapter() {
 
 		stateManager.update(delta)
 
-		stateManager.draw()
+		renderer.use(camera) {
+
+			stateManager.draw()
+
+		}
 
 	}
 
 	override fun hide() = dispose()
 
 	override fun dispose() {
+
+		renderer.dispose()
 
 		assets[AssetsDescription.music].stop()
 		assets.dispose()
@@ -46,5 +59,23 @@ class PlayScreen : ScreenAdapter() {
 
 }
 
-//fun assets(function: Assets.() -> Unit) =
-//		PlayScreen.assets.function()
+class DebugRenderer {
+
+	val renderer = ShapeRenderer()
+
+
+	fun use(camera: Camera, function: () -> Unit) {
+		renderer.projectionMatrix = camera.combined
+		renderer.use(ShapeRenderer.ShapeType.Line) {
+
+			function()
+
+		}
+	}
+
+
+	fun draw(vertices: FloatArray) = renderer.polygon(vertices)
+
+	fun dispose() = renderer.dispose()
+
+}
