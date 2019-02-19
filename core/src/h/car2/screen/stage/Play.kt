@@ -3,7 +3,6 @@ package h.car2.screen.stage
 import com.badlogic.gdx.graphics.g2d.Batch
 import com.badlogic.gdx.scenes.scene2d.ui.Label
 import h.car2.entity.score
-import h.car2.entity.scoreUp
 import h.car2.entity.touchArea
 import h.car2.screen.PlayScreen.Companion.assets
 import h.car2.screen.PlayScreen.Companion.stateManager

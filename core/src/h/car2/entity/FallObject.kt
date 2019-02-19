@@ -31,22 +31,24 @@ class FallObject(private val side: Side) : Sprite(), Pool.Poolable {
 						x + width, y + height,
 						x + width, y).toFloatArray())
 
+	val random get() = MathUtils.random(0, 9)
 	fun init() {
 
-		val random = MathUtils.random(0, 9)
 
 		val region = when (random) {
-			1, 2, 3 -> {
+			1, 2 -> {
 				type = Type.Coin
 				side.coinTexture
 			}
-			4, 5, 6, 7, 8, 9 -> {
+			3, 4, 5, 6, 7, 8, 9 -> {
 				type = Type.Block
 				side.blockTexture
 			}
 			0 -> return
 			else -> return
 		}
+
+		if (type == Type.None) return
 
 		active = true
 
@@ -68,6 +70,7 @@ class FallObject(private val side: Side) : Sprite(), Pool.Poolable {
 	}
 
 	fun update(delta: Float, speed: Float) {
+		if (type == Type.None) return
 
 
 		y += speed * delta
@@ -85,6 +88,7 @@ class FallObject(private val side: Side) : Sprite(), Pool.Poolable {
 	}
 
 	fun collation(car: Car) {
+		if (type == Type.None) return
 
 
 //		if (boundingRectangle.overlaps(car.boundingRectangle)) {
@@ -93,7 +97,7 @@ class FallObject(private val side: Side) : Sprite(), Pool.Poolable {
 
 				Type.Coin -> {
 					if (Setting.sound) assets[AssetsDescription.coin].play()
-					scoreUp()
+					GameManager.scoreUp()
 				}
 				Type.Block -> {
 					if (Setting.sound) assets[AssetsDescription.block].play()

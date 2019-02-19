@@ -7,18 +7,16 @@ import ktx.app.clearScreen
 
 abstract class CustomGame : KtxGame<Screen>() {
 
+	private val lessDelta = 1 / 60f
 
 	override fun render() {
 		clearScreen(0f, 0f, 0f, 1f)
 
-		val delta = run {
 
-			val d = Gdx.graphics.deltaTime
-			val lessD = 1 / 60f
+		var delta = Gdx.graphics.deltaTime
 
-			if (d > lessD) lessD else d
+		delta = if (delta > lessDelta) lessDelta else delta
 
-		}
 
 		currentScreen.render(delta)
 	}

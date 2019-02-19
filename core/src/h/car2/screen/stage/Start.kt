@@ -1,6 +1,7 @@
 package h.car2.screen.stage
 
 import com.badlogic.gdx.graphics.g2d.Batch
+import h.car2.entity.GameManager
 import h.car2.entity.Speed
 import h.car2.entity.score
 import h.car2.entity.speed
@@ -25,8 +26,7 @@ class Start : State {
 
 		timer.reset()
 
-		score = 0
-		speed = Speed.medium
+		GameManager.start ()
 
 		assets.apply {
 			world.setSpeed()

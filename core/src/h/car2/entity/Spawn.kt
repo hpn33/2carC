@@ -7,11 +7,9 @@ import h.car2.util.Timer
 import h.car2.util.downWith
 import h.car2.util.near
 
-class Spawn(side: Side) {
+class Spawn(var side: Side) {
 
-	private val pool = object : Pool<FallObject>() {
-		override fun newObject() = FallObject(side)
-	}
+	private var pool = Map(side)
 
 	private val activeObject = mutableListOf<FallObject>()
 
@@ -79,12 +77,21 @@ class Spawn(side: Side) {
 
 		setSpeed()
 
+
 		downWith(activeObject.size) {
 			pool.free(activeObject[it])
 		}
+
+		side.init()
+
+		pool = Map(side)
 
 		activeObject.clear()
 
 		timer.reset()
 	}
+}
+
+class Map(val side: Side): Pool<FallObject>() {
+	override fun newObject() = FallObject(side)
 }

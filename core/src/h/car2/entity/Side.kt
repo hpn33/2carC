@@ -18,8 +18,11 @@ sealed class Side {
 	internal val coinTexture get() = assets.atlas(coin)
 	internal val blockTexture get() = assets.atlas(block)
 
-	abstract val offset: Float
+	internal var offset = MathUtils.random(50f, 250f)
 
+	internal fun init() {
+		offset = MathUtils.random(50f, 250f)
+	}
 
 	class Right : Side() {
 		override val firstLine = 4
@@ -29,7 +32,6 @@ sealed class Side {
 		override val coin = RegionName.coinRed
 		override val block = RegionName.blockRed
 
-		override val offset = MathUtils.random(50f, 150f)
 	}
 
 	class Left : Side() {
@@ -39,8 +41,6 @@ sealed class Side {
 		override val car = RegionName.carBlue
 		override val coin = RegionName.coinBlue
 		override val block = RegionName.blockBlue
-
-		override val offset = MathUtils.random(20f, 200f)
 
 	}
 
