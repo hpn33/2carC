@@ -2,6 +2,7 @@ package h.car2.screen
 
 import com.badlogic.gdx.ScreenAdapter
 import com.badlogic.gdx.graphics.Camera
+import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.OrthographicCamera
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer
 import h.car2.screen.Renderer.Companion.camera
@@ -34,7 +35,7 @@ class PlayScreen : ScreenAdapter() {
 
 
 	override fun render(delta: Float) {
-		clearScreen(0f, 0f, 0f, 1f)
+		clearScreen(1f, 1f, 1f, 1f)
 
 		stateManager.update(delta)
 
@@ -62,6 +63,7 @@ class PlayScreen : ScreenAdapter() {
 class DebugRenderer {
 
 	val renderer = ShapeRenderer()
+			.apply{ color = Color.GREEN }
 
 
 	fun use(camera: Camera, function: () -> Unit) {

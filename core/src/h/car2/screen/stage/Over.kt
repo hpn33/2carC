@@ -1,6 +1,5 @@
 package h.car2.screen.stage
 
-import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.g2d.Batch
 import h.car2.entity.Speed
 import h.car2.entity.speed
@@ -56,8 +55,8 @@ class Over : State {
 		assets.apply {
 			world.setSpeed()
 
-			carL.start()
-			carR.start()
+			playerL.start()
+			playerR.start()
 		}
 	}
 
@@ -70,8 +69,8 @@ class Over : State {
 
 			world.draw(batch)
 
-			carL.draw(batch)
-			carR.draw(batch)
+			playerL.draw(batch)
+			playerR.draw(batch)
 		}
 	}
 

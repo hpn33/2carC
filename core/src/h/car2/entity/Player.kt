@@ -3,15 +3,12 @@ package h.car2.entity
 import com.badlogic.gdx.Input
 import com.badlogic.gdx.graphics.g2d.Batch
 import com.badlogic.gdx.graphics.g2d.Sprite
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer
 import com.badlogic.gdx.math.MathUtils
 import com.badlogic.gdx.math.Polygon
-import h.car2.screen.PlayScreen
 import h.car2.screen.PlayScreen.Companion.renderer
 import h.car2.util.*
-import ktx.graphics.use
 
-class Car(private val side: Side) : Sprite() {
+class Player(private val side: Side) : Sprite() {
 
 
 	private var current = side.firstLine
@@ -26,7 +23,7 @@ class Car(private val side: Side) : Sprite() {
 
 	fun load() {
 
-		val region = side.carTexture
+		val region = side.playerTexture
 
 		setRegion(region)
 		setColor(1f, 1f, 1f, 1f)

@@ -24,7 +24,7 @@ class Spawn(var side: Side) {
 	}
 
 
-	fun update(delta: Float, car: Car) {
+	fun update(delta: Float, player: Player) {
 
 		targetSpeed = speed
 
@@ -59,7 +59,7 @@ class Spawn(var side: Side) {
 			val item = activeObject[it]
 
 			item.update(delta, currentSpeed)
-			item.collation(car)
+			item.collation(player)
 
 			if (activeObject.size > 0 && !item.active) {
 				activeObject.removeAt(it)
@@ -92,6 +92,6 @@ class Spawn(var side: Side) {
 	}
 }
 
-class Map(val side: Side): Pool<FallObject>() {
+class Map(private val side: Side): Pool<FallObject>() {
 	override fun newObject() = FallObject(side)
 }

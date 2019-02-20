@@ -2,9 +2,6 @@ package h.car2.screen.stage
 
 import com.badlogic.gdx.graphics.g2d.Batch
 import h.car2.entity.GameManager
-import h.car2.entity.Speed
-import h.car2.entity.score
-import h.car2.entity.speed
 import h.car2.screen.PlayScreen.Companion.assets
 import h.car2.screen.PlayScreen.Companion.stateManager
 import h.car2.util.Timer
@@ -31,8 +28,8 @@ class Start : State {
 		assets.apply {
 			world.setSpeed()
 
-			carL.start()
-			carR.start()
+			playerL.start()
+			playerR.start()
 
 			spawnL.start()
 			spawnR.start()
@@ -60,8 +57,8 @@ class Start : State {
 
 			world.draw(batch)
 
-			carL.draw(batch)
-			carR.draw(batch)
+			playerL.draw(batch)
+			playerR.draw(batch)
 		}
 	}
 

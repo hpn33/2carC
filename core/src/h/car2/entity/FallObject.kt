@@ -2,7 +2,8 @@ package h.car2.entity
 
 import com.badlogic.gdx.graphics.g2d.Batch
 import com.badlogic.gdx.graphics.g2d.Sprite
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer
+import com.badlogic.gdx.graphics.g2d.TextureAtlas
+import com.badlogic.gdx.graphics.g2d.TextureRegion
 import com.badlogic.gdx.math.Intersector
 import com.badlogic.gdx.math.MathUtils
 import com.badlogic.gdx.math.Polygon
@@ -12,8 +13,6 @@ import h.car2.screen.PlayScreen.Companion.renderer
 import h.car2.screen.PlayScreen.Companion.stateManager
 import h.car2.screen.stage.Over
 import h.car2.util.*
-import ktx.graphics.use
-import ktx.log.debug
 
 class FallObject(private val side: Side) : Sprite(), Pool.Poolable {
 
@@ -31,24 +30,26 @@ class FallObject(private val side: Side) : Sprite(), Pool.Poolable {
 						x + width, y + height,
 						x + width, y).toFloatArray())
 
-	val random get() = MathUtils.random(0, 9)
+	private val random get() = MathUtils.random(0, 9)
+
 	fun init() {
 
+		val region: TextureAtlas.AtlasRegion
 
-		val region = when (random) {
+		when (random) {
 			1, 2 -> {
 				type = Type.Coin
-				side.coinTexture
+				region = side.coinTexture
 			}
 			3, 4, 5, 6, 7, 8, 9 -> {
 				type = Type.Block
-				side.blockTexture
+				region = side.blockTexture
 			}
 			0 -> return
 			else -> return
 		}
 
-		if (type == Type.None) return
+//		if (type == Type.None) return
 
 		active = true
 
@@ -60,8 +61,8 @@ class FallObject(private val side: Side) : Sprite(), Pool.Poolable {
 
 
 		x = when (random) {
-			0, 1, 2, 3, 4 -> regionWidth centerOfLine side.lines.first
-			5, 6, 7, 8, 9 -> regionWidth centerOfLine side.lines.second
+			0, 2, 4, 6, 8 -> regionWidth centerOfLine side.lines.first
+			1, 3, 5, 7, 9 -> regionWidth centerOfLine side.lines.second
 			else -> regionWidth centerOfLine side.lines.first
 		}
 
@@ -70,7 +71,7 @@ class FallObject(private val side: Side) : Sprite(), Pool.Poolable {
 	}
 
 	fun update(delta: Float, speed: Float) {
-		if (type == Type.None) return
+//		if (type == Type.None) return
 
 
 		y += speed * delta
@@ -87,12 +88,12 @@ class FallObject(private val side: Side) : Sprite(), Pool.Poolable {
 
 	}
 
-	fun collation(car: Car) {
-		if (type == Type.None) return
+	fun collation(player: Player) {
+//		if (type == Type.None) return
 
 
-//		if (boundingRectangle.overlaps(car.boundingRectangle)) {
-		if (Intersector.overlapConvexPolygons(car.bound, bound)) {
+//		if (boundingRectangle.overlaps(player.boundingRectangle)) {
+		if (Intersector.overlapConvexPolygons(player.bound, bound)) {
 			when (type) {
 
 				Type.Coin -> {
@@ -115,13 +116,13 @@ class FallObject(private val side: Side) : Sprite(), Pool.Poolable {
 
 	override fun draw(batch: Batch?) {
 
-		if (type == Type.None) return
-//		super.draw(batch)
+//		if (type == Type.None) return
+		super.draw(batch)
 
-		batch?.draw(texture,
-				x - width / 2, y,
-				width * 2, height * 2,
-				u, v, u2, v2)
+//		batch?.draw(texture,
+//				x - width / 2, y,
+//				width * 2, height * 2,
+//				u, v, u2, v2)
 
 
 		renderer.draw(bound.transformedVertices)

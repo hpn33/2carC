@@ -1,6 +1,5 @@
 package h.car2.entity
 
-import com.badlogic.gdx.assets.AssetManager
 import com.badlogic.gdx.graphics.g2d.Batch
 import com.badlogic.gdx.math.MathUtils
 import h.car2.screen.PlayScreen.Companion.assets
@@ -10,22 +9,22 @@ import h.car2.util.*
 class World {
 
 
-	private val street
-			by lazy {
-				ParallaxLayout(assets.atlas(RegionName.street))
-						.apply {
+//	private val street
+//			by lazy {
+//				ParallaxLayout(assets.atlas(RegionName.street))
+//						.apply {
+//
+//							speed.y = Speed.low
+//							dimension.set(
+//									camera.viewportWidth,
+//									camera.viewportHeight)
+//
+//						}
+//			}
 
-							speed.y = Speed.low
-							dimension.set(
-									camera.viewportWidth,
-									camera.viewportHeight)
 
-						}
-			}
-
-
-	private val centerLine by lazy {
-		ParallaxLayout(assets.atlas(RegionName.lineCenter1))
+	private val lineC by lazy {
+		ParallaxLayout(assets.atlas(RegionName.lineC))
 				.apply {
 
 					speed.y = Speed.low
@@ -38,7 +37,7 @@ class World {
 	}
 
 	private val lineL by lazy {
-		ParallaxLayout(assets.atlas(RegionName.lineCenterStreet))
+		ParallaxLayout(assets.atlas(RegionName.line))
 				.apply {
 
 					speed.y = Speed.low
@@ -51,7 +50,7 @@ class World {
 	}
 
 	private val lineR by lazy {
-		ParallaxLayout(assets.atlas(RegionName.lineCenterStreet))
+		ParallaxLayout(assets.atlas(RegionName.line))
 				.apply {
 
 					speed.y = Speed.low
@@ -79,10 +78,10 @@ class World {
 		currentSpeed = MathUtils.lerp(currentSpeed, targetSpeed, 3 * delta)
 		currentSpeed = near(currentSpeed, targetSpeed, 1f)
 
-		street.speed.y = currentSpeed
+//		street.speed.y = currentSpeed
 
 
-		centerLine.speed.y = currentSpeed
+		lineC.speed.y = currentSpeed
 
 		lineL.speed.y = currentSpeed
 
@@ -90,9 +89,9 @@ class World {
 
 
 
-		street.update(delta)
+//		street.update(delta)
 
-		centerLine.update(delta)
+		lineC.update(delta)
 		lineL.update(delta)
 		lineR.update(delta)
 	}
@@ -100,10 +99,10 @@ class World {
 
 	fun draw(batch: Batch) {
 
-		street.draw(batch)
+//		street.draw(batch)
 
 		lineL.draw(batch)
-		centerLine.draw(batch)
+		lineC.draw(batch)
 		lineR.draw(batch)
 
 	}

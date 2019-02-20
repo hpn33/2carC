@@ -77,8 +77,8 @@ class Menu : State {
 			spawnL.setSpeed()
 			spawnR.setSpeed()
 
-			carL.load()
-			carR.load()
+			playerL.load()
+			playerR.load()
 
 			if (Setting.music)
 				get(AssetsDescription.music).apply {
@@ -101,8 +101,8 @@ class Menu : State {
 		assets.apply {
 			world.draw(batch)
 
-			carL.draw(batch)
-			carR.draw(batch)
+			playerL.draw(batch)
+			playerR.draw(batch)
 		}
 	}
 

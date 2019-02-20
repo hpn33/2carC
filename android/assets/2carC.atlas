@@ -18,14 +18,14 @@ block-red
   orig: 10, 10
   offset: 0, 0
   index: -1
-car-blue
+player-blue
   rotate: false
   xy: 60, 22
   size: 22, 34
   orig: 22, 34
   offset: 0, 0
   index: -1
-car-red
+player-red
   rotate: false
   xy: 36, 22
   size: 22, 34

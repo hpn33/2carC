@@ -1,11 +1,9 @@
 package h.car2.screen.stage
 
 import com.badlogic.gdx.graphics.g2d.Batch
-import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import h.car2.screen.PlayScreen.Companion.assets
 import h.car2.screen.PlayScreen.Companion.stateManager
 import ktx.actors.onClick
-import ktx.scene2d.button
 import ktx.scene2d.label
 import ktx.scene2d.table
 import ktx.scene2d.textButton
@@ -48,8 +46,8 @@ class Pause : State {
 
 			world.draw(batch)
 
-			carL.draw(batch)
-			carR.draw(batch)
+			playerL.draw(batch)
+			playerR.draw(batch)
 
 			spawnL.draw(batch)
 			spawnR.draw(batch)

@@ -22,7 +22,7 @@ class Load : State {
 
 		Scene2DSkin.defaultSkin = Skin()
 				.apply {
-					val fontStyle = Label.LabelStyle(BitmapFont(), Color.WHITE)
+					val fontStyle = Label.LabelStyle(BitmapFont(), Color.GRAY)
 					add("default", fontStyle)
 				}
 
@@ -50,6 +50,13 @@ class Load : State {
 
 
 			Scene2DSkin.defaultSkin = assets[AssetsDescription.skin]
+					.apply {
+						val font = getFont("default-font")
+								.apply { color = Color.GRAY }
+//						val fontStyle = Label.LabelStyle(font, Color.GRAY)
+						add("default-font", font)
+//						add("default", fontStyle)
+					}
 
 			with(stateManager) {
 

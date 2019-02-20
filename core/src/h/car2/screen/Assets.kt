@@ -2,7 +2,7 @@ package h.car2.screen
 
 import com.badlogic.gdx.assets.AssetDescriptor
 import com.badlogic.gdx.assets.AssetManager
-import h.car2.entity.Car
+import h.car2.entity.Player
 import h.car2.entity.Side
 import h.car2.entity.Spawn
 import h.car2.entity.World
@@ -19,8 +19,8 @@ class Assets {
 	private val right = Side.Right()
 	private val left = Side.Left()
 
-	internal val carR = Car(right)
-	internal val carL = Car(left)
+	internal val playerR = Player(right)
+	internal val playerL = Player(left)
 
 	internal val spawnR = Spawn(right)
 	internal val spawnL = Spawn(left)

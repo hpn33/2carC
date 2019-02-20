@@ -46,13 +46,13 @@ class Play : State {
 			inCell.grow()
 
 			touchArea { cell ->
-				onClick { assets.carL.changePosition() }
+				onClick { assets.playerL.changePosition() }
 
 				cell.grow()
 			}
 
 			touchArea { cell ->
-				onClick { assets.carR.changePosition() }
+				onClick { assets.playerR.changePosition() }
 
 				cell.grow()
 			}
@@ -71,11 +71,11 @@ class Play : State {
 
 			world.update(delta)
 
-			carL.update(delta)
-			carR.update(delta)
+			playerL.update(delta)
+			playerR.update(delta)
 
-			spawnL.update(delta, carL)
-			spawnR.update(delta, carR)
+			spawnL.update(delta, playerL)
+			spawnR.update(delta, playerR)
 
 		}
 
@@ -93,8 +93,8 @@ class Play : State {
 			spawnL.draw(batch)
 			spawnR.draw(batch)
 
-			carL.draw(batch)
-			carR.draw(batch)
+			playerL.draw(batch)
+			playerR.draw(batch)
 
 		}
 	}
