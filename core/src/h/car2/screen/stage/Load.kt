@@ -5,15 +5,18 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont
 import com.badlogic.gdx.math.MathUtils
 import com.badlogic.gdx.scenes.scene2d.ui.Label
 import com.badlogic.gdx.scenes.scene2d.ui.Skin
-import h.car2.screen.PlayScreen.Companion.assets
-import h.car2.screen.PlayScreen.Companion.stateManager
+import h.car2.screen.Assets
 import h.car2.util.AssetsDescription
 import h.car2.util.near
+import ktx.inject.Context
 import ktx.scene2d.Scene2DSkin
 import ktx.scene2d.label
 import ktx.scene2d.table
 
-class Load : State {
+class Load(private val context: Context) : State {
+
+	private val assets  = context<Assets>()
+	private val stateManager = context<StateManager<State>>()
 
 	private lateinit var lab: Label
 
@@ -60,12 +63,12 @@ class Load : State {
 
 			with(stateManager) {
 
-				add(Menu())
-				add(Start())
-				add(Play())
-				add(Pause())
-				add(PreOver())
-				add(Over())
+				add(Menu(context))
+				add(Start(context))
+				add(Play(context))
+				add(Pause(context))
+				add(PreOver(context))
+				add(Over(context))
 
 				set<Menu>()
 

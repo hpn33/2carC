@@ -2,11 +2,14 @@ package h.car2.entity
 
 import com.badlogic.gdx.graphics.g2d.Batch
 import com.badlogic.gdx.math.MathUtils
-import h.car2.screen.PlayScreen.Companion.assets
+import h.car2.screen.Assets
 import h.car2.screen.Renderer.Companion.camera
 import h.car2.util.*
+import ktx.inject.Context
 
-class World {
+class World(private val context: Context) {
+
+	private val assets get() = context<Assets>()
 
 
 //	private val street
@@ -86,7 +89,6 @@ class World {
 		lineL.speed.y = currentSpeed
 
 		lineR.speed.y = currentSpeed
-
 
 
 //		street.update(delta)

@@ -5,10 +5,11 @@ import com.badlogic.gdx.graphics.g2d.Batch
 import com.badlogic.gdx.graphics.g2d.Sprite
 import com.badlogic.gdx.math.MathUtils
 import com.badlogic.gdx.math.Polygon
-import h.car2.screen.PlayScreen.Companion.renderer
+import h.car2.screen.DebugRenderer
 import h.car2.util.*
+import ktx.inject.Context
 
-class Player(private val side: Side) : Sprite() {
+class Player(private val context: Context, private val side: Side) : Sprite() {
 
 
 	private var current = side.firstLine
@@ -97,7 +98,7 @@ class Player(private val side: Side) : Sprite() {
 	override fun draw(batch: Batch?) {
 		super.draw(batch)
 
-		renderer.draw(bound.transformedVertices)
+		context<DebugRenderer>().draw(bound.transformedVertices)
 
 	}
 

@@ -8,9 +8,10 @@ import h.car2.entity.ParallaxLayout
 import h.car2.util.*
 import ktx.app.clearScreen
 import ktx.graphics.use
+import ktx.inject.Context
 
-class Tst : ScreenAdapter() {
-	val assets = Assets()
+class Tst(context: Context) : ScreenAdapter() {
+	val assets = context<Assets>()
 
 
 	private lateinit var streetP: ParallaxLayout

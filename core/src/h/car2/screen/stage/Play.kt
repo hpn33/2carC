@@ -4,14 +4,17 @@ import com.badlogic.gdx.graphics.g2d.Batch
 import com.badlogic.gdx.scenes.scene2d.ui.Label
 import h.car2.entity.score
 import h.car2.entity.touchArea
-import h.car2.screen.PlayScreen.Companion.assets
-import h.car2.screen.PlayScreen.Companion.stateManager
+import h.car2.screen.Assets
 import ktx.actors.onClick
+import ktx.inject.Context
 import ktx.scene2d.label
 import ktx.scene2d.table
 import ktx.scene2d.textButton
 
-class Play : State {
+class Play(context: Context) : State {
+
+	private val stateManager = context<StateManager<State>>()
+	private val assets = context<Assets>()
 
 	private lateinit var scoreL: Label
 

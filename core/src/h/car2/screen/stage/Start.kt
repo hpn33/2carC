@@ -2,13 +2,16 @@ package h.car2.screen.stage
 
 import com.badlogic.gdx.graphics.g2d.Batch
 import h.car2.entity.GameManager
-import h.car2.screen.PlayScreen.Companion.assets
-import h.car2.screen.PlayScreen.Companion.stateManager
+import h.car2.screen.Assets
 import h.car2.util.Timer
+import ktx.inject.Context
 import ktx.scene2d.label
 import ktx.scene2d.table
 
-class Start : State {
+class Start(context: Context) : State {
+
+	private val stateManager = context<StateManager<State>>()
+	private val assets = context<Assets>()
 
 	override val layout = table {
 		setFillParent(true)

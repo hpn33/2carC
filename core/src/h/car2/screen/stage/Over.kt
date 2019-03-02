@@ -3,14 +3,18 @@ package h.car2.screen.stage
 import com.badlogic.gdx.graphics.g2d.Batch
 import h.car2.entity.Speed
 import h.car2.entity.speed
+import h.car2.screen.Assets
 import h.car2.screen.PlayScreen
-import h.car2.screen.PlayScreen.Companion.assets
 import ktx.actors.onClick
+import ktx.inject.Context
 import ktx.scene2d.label
 import ktx.scene2d.table
 import ktx.scene2d.textButton
 
-class Over : State {
+class Over(context: Context) : State {
+
+	private val stateManager = context<StateManager<State>>()
+	private val assets = context<Assets>()
 
 	override val layout = table {
 		setFillParent(true)
@@ -26,7 +30,7 @@ class Over : State {
 		textButton("again") {
 
 			onClick {
-				PlayScreen.stateManager.set<Start>()
+				stateManager.set<Start>()
 			}
 
 			inCell.growX()
@@ -37,7 +41,7 @@ class Over : State {
 		textButton("menu") {
 
 			onClick {
-				PlayScreen.stateManager.set<Menu>()
+				stateManager.set<Menu>()
 			}
 
 			inCell.growX()

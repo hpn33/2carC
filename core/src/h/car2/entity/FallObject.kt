@@ -8,13 +8,21 @@ import com.badlogic.gdx.math.Intersector
 import com.badlogic.gdx.math.MathUtils
 import com.badlogic.gdx.math.Polygon
 import com.badlogic.gdx.utils.Pool
-import h.car2.screen.PlayScreen.Companion.assets
-import h.car2.screen.PlayScreen.Companion.renderer
-import h.car2.screen.PlayScreen.Companion.stateManager
+import h.car2.screen.Assets
+import h.car2.screen.DebugRenderer
 import h.car2.screen.stage.Over
+import h.car2.screen.stage.State
+import h.car2.screen.stage.StateManager
 import h.car2.util.*
+import ktx.inject.Context
 
-class FallObject(private val side: Side) : Sprite(), Pool.Poolable {
+class FallObject(context: Context, private val side: Side) : Sprite(), Pool.Poolable {
+
+	private val assets = context<Assets>()
+	private val stateManager = context<StateManager<State>>()
+	private val renderer = context<DebugRenderer>()
+	private val setting = context<Setting>()
+
 
 	var active = true
 
@@ -32,6 +40,8 @@ class FallObject(private val side: Side) : Sprite(), Pool.Poolable {
 
 	private val random get() = MathUtils.random(0, 9)
 
+//	init { init()}
+	
 	fun init() {
 
 		val region: TextureAtlas.AtlasRegion
@@ -71,7 +81,7 @@ class FallObject(private val side: Side) : Sprite(), Pool.Poolable {
 	}
 
 	fun update(delta: Float, speed: Float) {
-//		if (type == Type.None) return
+		if (type == Type.None) return
 
 
 		y += speed * delta
@@ -89,7 +99,7 @@ class FallObject(private val side: Side) : Sprite(), Pool.Poolable {
 	}
 
 	fun collation(player: Player) {
-//		if (type == Type.None) return
+		if (type == Type.None) return
 
 
 //		if (boundingRectangle.overlaps(player.boundingRectangle)) {
@@ -97,11 +107,11 @@ class FallObject(private val side: Side) : Sprite(), Pool.Poolable {
 			when (type) {
 
 				Type.Coin -> {
-					if (Setting.sound) assets[AssetsDescription.coin].play()
+					if (setting.sound) assets[AssetsDescription.coin].play()
 					GameManager.scoreUp()
 				}
 				Type.Block -> {
-					if (Setting.sound) assets[AssetsDescription.block].play()
+					if (setting.sound) assets[AssetsDescription.block].play()
 					stateManager.set<Over>()
 				}
 
@@ -114,9 +124,9 @@ class FallObject(private val side: Side) : Sprite(), Pool.Poolable {
 	}
 
 
-	override fun draw(batch: Batch?) {
+	override fun draw(batch: Batch) {
 
-//		if (type == Type.None) return
+		if (type == Type.None) return
 		super.draw(batch)
 
 //		batch?.draw(texture,

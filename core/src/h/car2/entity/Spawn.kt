@@ -6,10 +6,11 @@ import com.badlogic.gdx.utils.Pool
 import h.car2.util.Timer
 import h.car2.util.downWith
 import h.car2.util.near
+import ktx.inject.Context
 
-class Spawn(var side: Side) {
+class Spawn(context: Context, side: Side) {
 
-	private var pool = Map(side)
+	private val pool = Map(context, side)
 
 	private val activeObject = mutableListOf<FallObject>()
 
@@ -82,9 +83,7 @@ class Spawn(var side: Side) {
 			pool.free(activeObject[it])
 		}
 
-		side.init()
-
-		pool = Map(side)
+		pool.init()
 
 		activeObject.clear()
 
@@ -92,6 +91,8 @@ class Spawn(var side: Side) {
 	}
 }
 
-class Map(private val side: Side): Pool<FallObject>() {
-	override fun newObject() = FallObject(side)
+class Map(private val context: Context, private val side: Side) : Pool<FallObject>() {
+	fun init() = side.init()
+
+	override fun newObject() = FallObject(context, side)
 }

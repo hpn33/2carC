@@ -7,23 +7,24 @@ import h.car2.entity.Side
 import h.car2.entity.Spawn
 import h.car2.entity.World
 import h.car2.util.AssetsDescription
+import ktx.inject.Context
 
-class Assets {
+class Assets(context: Context) {
 
 
 	internal val manager = AssetManager()
 
 
-	internal val world = World()
+	internal val world = World(context)
 
-	private val right = Side.Right()
-	private val left = Side.Left()
+	private val right = Side.Right(context)
+	private val left = Side.Left(context)
 
-	internal val playerR = Player(right)
-	internal val playerL = Player(left)
+	internal val playerR = Player(context, right)
+	internal val playerL = Player(context, left)
 
-	internal val spawnR = Spawn(right)
-	internal val spawnL = Spawn(left)
+	internal val spawnR = Spawn(context, right)
+	internal val spawnL = Spawn(context, left)
 
 
 	fun load() =

@@ -1,10 +1,13 @@
 package h.car2.entity
 
 import com.badlogic.gdx.math.MathUtils
-import h.car2.screen.PlayScreen.Companion.assets
+import h.car2.screen.Assets
 import h.car2.util.RegionName
+import ktx.inject.Context
 
-sealed class Side {
+sealed class Side(private val context: Context) {
+
+	private val assets get() = context<Assets>()
 
 	abstract val firstLine: Int
 	abstract val lines: Pair<Int, Int>
@@ -23,7 +26,7 @@ sealed class Side {
 		offset = MathUtils.random(50f, 250f)
 	}
 
-	class Right : Side() {
+	class Right(context: Context) : Side(context) {
 		override val firstLine = 4
 		override val lines: Pair<Int, Int> = 3 to 4
 
@@ -31,7 +34,7 @@ sealed class Side {
 
 	}
 
-	class Left : Side() {
+	class Left(context: Context) : Side(context) {
 		override val firstLine = 1
 		override val lines: Pair<Int, Int> = 1 to 2
 

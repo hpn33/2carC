@@ -4,20 +4,24 @@ import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.g2d.Batch
 import h.car2.entity.Speed
 import h.car2.entity.speed
-import h.car2.screen.PlayScreen.Companion.assets
-import h.car2.screen.PlayScreen.Companion.stateManager
+import h.car2.screen.Assets
 import h.car2.util.AssetsDescription
 import h.car2.util.Setting
 import ktx.actors.onClick
+import ktx.inject.Context
 import ktx.scene2d.KCheckBox
 import ktx.scene2d.checkBox
 import ktx.scene2d.table
 import ktx.scene2d.textButton
 
-class Menu : State {
+class Menu(context: Context) : State {
 
-	lateinit var soundCheck: KCheckBox
-	lateinit var musicCheck: KCheckBox
+	private val stateManager = context<StateManager<State>>()
+	private val setting = context<Setting>()
+	private val assets = context<Assets>()
+
+	private lateinit var soundCheck: KCheckBox
+	private lateinit var musicCheck: KCheckBox
 
 	override val layout = table {
 
@@ -50,15 +54,15 @@ class Menu : State {
 			left()
 
 			checkBox("S") {
-				isChecked = Setting.sound
+				isChecked = setting.sound
 
-				onClick { Setting.sound = !Setting.sound }
+				onClick { setting.sound = !setting.sound }
 			}.also { box -> soundCheck = box }
 
 			checkBox("M") {
-				isChecked = Setting.music
+				isChecked = setting.music
 				onClick {
-					Setting.music = !Setting.music
+					setting.music = !setting.music
 				}
 			}.also { box -> musicCheck = box }
 
@@ -80,7 +84,7 @@ class Menu : State {
 			playerL.load()
 			playerR.load()
 
-			if (Setting.music)
+			if (setting.music)
 				get(AssetsDescription.music).apply {
 					isLooping = true
 					play()
